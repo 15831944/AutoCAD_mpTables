@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<Tables>
+	<Documents>
+		<Document document="СТБ 2255-2012" name="СПДС. Основные требования к документации строительного проекта"></Document>
+	</Documents>
+	<Table
+	name="Ведомость чертежей основного комплекта"
+	tablestylename="Mp_STB_2255_B1"
+	document="СТБ 2255-2012"
+	description="Приложение Б. Рисунок Б.1"
+	img="img_0"
+	DataRow="2"
+    DynRow="True"
+    NameToHeader="True"
+	></Table>
+	<Table
+	name="Ведомость спецификаций"
+	tablestylename="Mp_STB_2255_B1"
+	document="СТБ 2255-2012"
+	description="Приложение Б. Рисунок Б.1"
+	img="img_1"
+	DataRow="2"
+    DynRow="True"
+    NameToHeader="True"
+	></Table>
+	<Table
+	name="Ведомость основных комплектов чертежей"
+	tablestylename="Mp_STB_2255_B2"
+	document="СТБ 2255-2012"
+	description="Приложение Б. Рисунок Б.2"
+	img="img_2"
+	DataRow="2"
+    DynRow="True"
+    NameToHeader="True"
+	></Table>
+	<Table
+	name="Ведомость ссылочных и прилагаемых документов"
+	tablestylename="Mp_STB_2255_B2"
+	document="СТБ 2255-2012"
+	description="Приложение Б. Рисунок Б.2"
+	img="img_3"
+	DataRow="2"
+    DynRow="True"
+    NameToHeader="True"
+	></Table>
+	<Table
+	name="Спецификация"
+	tablestylename="Mp_STB_2255_Z1"
+	document="СТБ 2255-2012"
+	description="Приложение Ж. Рисунок Ж.1"
+	img="img_4"
+	DataRow="2"
+    DynRow="True"
+    NameToHeader="True"
+	></Table>
+	<Table
+	name="Групповая спецификация"
+	tablestylename="Mp_STB_2255_Z2"
+	document="СТБ 2255-2012"
+	description="Приложение Ж. Рисунок Ж.2"
+	img="img_5"
+	DataRow="3"
+    DynRow="True"
+    NameToHeader="True"
+	></Table>
+	<Table
+	name="Таблица регистрации изменений для текстовых документов"
+	tablestylename="Mp_STB_2255_L1"
+	document="СТБ 2255-2012"
+	description="Приложение Л. Рисунок Л.1"
+	img="img_6"
+	DataRow="0"
+    DynRow="False"
+    NameToHeader="False"
+	></Table>
+</Tables>

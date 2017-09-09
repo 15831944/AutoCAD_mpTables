@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B62E1FB9-01A1-4415-9A59-0942D3B0A81E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mpTables</RootNamespace>
+    <AssemblyName>mpTables_2010</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\ModPlus_builded\Functions\mpTables\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ac2010</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="acdbmgd">
+      <HintPath>..\..\..\..\Acad dlls\2010\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <HintPath>..\..\..\..\Acad dlls\2010\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\..\..\ModPlus_builded\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModPlus_2010">
+      <HintPath>..\..\..\..\ModPlus_builded\ModPlus_2010.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\..\..\ModPlus_builded\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interface.cs" />
+    <Compile Include="Jigs.cs" />
+    <Compile Include="MpTables.xaml.cs">
+      <DependentUpon>MpTables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mpTablesFunction.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MpTables_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MpTables_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\mpExWin\mpMsg.csproj">
+      <Project>{cb3b96a0-57c2-44c5-af59-5cec27da599e}</Project>
+      <Name>mpMsg</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\mpPInterface\mpPInterface.csproj">
+      <Project>{769afe8c-728a-49df-acde-325a961b809f}</Project>
+      <Name>mpPInterface</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\mpSettings\mpSettings.csproj">
+      <Project>{04f6a42c-3492-4430-a0f1-5ddfcea0fddd}</Project>
+      <Name>mpSettings</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RU\img_0.png" />
+    <Resource Include="Resources\Images\RU\img_1.png" />
+    <Resource Include="Resources\Images\RU\img_10.png" />
+    <Resource Include="Resources\Images\RU\img_11.png" />
+    <Resource Include="Resources\Images\RU\img_12.png" />
+    <Resource Include="Resources\Images\RU\img_13.png" />
+    <Resource Include="Resources\Images\RU\img_14.png" />
+    <Resource Include="Resources\Images\RU\img_15.png" />
+    <Resource Include="Resources\Images\RU\img_16.png" />
+    <Resource Include="Resources\Images\RU\img_17.png" />
+    <Resource Include="Resources\Images\RU\img_18.png" />
+    <Resource Include="Resources\Images\RU\img_19.png" />
+    <Resource Include="Resources\Images\RU\img_2.png" />
+    <Resource Include="Resources\Images\RU\img_20.png" />
+    <Resource Include="Resources\Images\RU\img_21.png" />
+    <Resource Include="Resources\Images\RU\img_22.png" />
+    <Resource Include="Resources\Images\RU\img_23.png" />
+    <Resource Include="Resources\Images\RU\img_24.png" />
+    <Resource Include="Resources\Images\RU\img_25.png" />
+    <Resource Include="Resources\Images\RU\img_26.png" />
+    <Resource Include="Resources\Images\RU\img_27.png" />
+    <Resource Include="Resources\Images\RU\img_28.png" />
+    <Resource Include="Resources\Images\RU\img_29.png" />
+    <Resource Include="Resources\Images\RU\img_3.png" />
+    <Resource Include="Resources\Images\RU\img_30.png" />
+    <Resource Include="Resources\Images\RU\img_31.png" />
+    <Resource Include="Resources\Images\RU\img_32.png" />
+    <Resource Include="Resources\Images\RU\img_33.png" />
+    <Resource Include="Resources\Images\RU\img_34.png" />
+    <Resource Include="Resources\Images\RU\img_35.png" />
+    <Resource Include="Resources\Images\RU\img_36.png" />
+    <Resource Include="Resources\Images\RU\img_37.png" />
+    <Resource Include="Resources\Images\RU\img_38.png" />
+    <Resource Include="Resources\Images\RU\img_39.png" />
+    <Resource Include="Resources\Images\RU\img_4.png" />
+    <Resource Include="Resources\Images\RU\img_40.png" />
+    <Resource Include="Resources\Images\RU\img_41.png" />
+    <Resource Include="Resources\Images\RU\img_42.png" />
+    <Resource Include="Resources\Images\RU\img_43.png" />
+    <Resource Include="Resources\Images\RU\img_44.png" />
+    <Resource Include="Resources\Images\RU\img_45.png" />
+    <Resource Include="Resources\Images\RU\img_46.png" />
+    <Resource Include="Resources\Images\RU\img_47.png" />
+    <Resource Include="Resources\Images\RU\img_48.png" />
+    <Resource Include="Resources\Images\RU\img_49.png" />
+    <Resource Include="Resources\Images\RU\img_5.png" />
+    <Resource Include="Resources\Images\RU\img_50.png" />
+    <Resource Include="Resources\Images\RU\img_51.png" />
+    <Resource Include="Resources\Images\RU\img_52.png" />
+    <Resource Include="Resources\Images\RU\img_6.png" />
+    <Resource Include="Resources\Images\RU\img_7.png" />
+    <Resource Include="Resources\Images\RU\img_8.png" />
+    <Resource Include="Resources\Images\RU\img_9.png" />
+    <Resource Include="Resources\Images\NoImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MpTables.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RU\img_53.png" />
+    <Resource Include="Resources\Images\RU\img_54.png" />
+    <Resource Include="Resources\Images\RU\img_55.png" />
+    <Resource Include="Resources\Images\RU\img_56.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RU\img_57.png" />
+    <Resource Include="Resources\Images\RU\img_58.png" />
+    <Resource Include="Resources\Images\RU\img_59.png" />
+    <Resource Include="Resources\Images\RU\img_60.png" />
+    <Resource Include="Resources\Images\RU\img_61.png" />
+    <Resource Include="Resources\Images\RU\img_62.png" />
+    <Resource Include="Resources\Images\RU\img_63.png" />
+    <Resource Include="Resources\Images\RU\img_64.png" />
+    <Resource Include="Resources\Images\RU\img_65.png" />
+    <Resource Include="Resources\Images\RU\img_66.png" />
+    <Resource Include="Resources\Images\RU\img_67.png" />
+    <Resource Include="Resources\Images\RU\img_68.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Flags\russia_thin_rectangular_icon_64.png" />
+    <Resource Include="Resources\Flags\ukraine_thin_rectangular_icon_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TablesBase_RU.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Flags\belarus_thin_rectangular_icon_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TablesBase_UA.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\UA\img_0.png" />
+    <Resource Include="Resources\Images\UA\img_1.png" />
+    <Resource Include="Resources\Images\UA\img_2.png" />
+    <Resource Include="Resources\Images\UA\img_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\UA\img_4.png" />
+    <Resource Include="Resources\Images\UA\img_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\BY\img_4.png" />
+    <Resource Include="Resources\Images\BY\img_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\UA\img_6.png" />
+    <Resource Include="Resources\Images\UA\img_7.png" />
+    <Resource Include="Resources\Images\UA\img_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\BY\img_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TablesBase_BY.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\BY\img_0.png" />
+    <Resource Include="Resources\Images\BY\img_2.png" />
+    <Resource Include="Resources\Images\BY\img_3.png" />
+    <Resource Include="Resources\Images\BY\img_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tables.dwg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RU\img_69.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
