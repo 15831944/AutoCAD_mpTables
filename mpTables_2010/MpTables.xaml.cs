@@ -14,13 +14,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Xml.Linq;
-using ModPlus;
-using mpMsg;
-using mpSettings;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.DatabaseServices;
+using ModPlusAPI;
+using ModPlusAPI.Windows;
+using ModPlusAPI.Windows.Helpers;
 using Visibility = System.Windows.Visibility;
 
 namespace mpTables
@@ -36,12 +35,7 @@ namespace mpTables
         public MpTables()
         {
             InitializeComponent();
-            MpWindowHelpers.OnWindowStartUp(
-                this,
-                MpSettings.GetValue("Settings", "MainSet", "Theme"),
-                MpSettings.GetValue("Settings", "MainSet", "AccentColor"),
-                MpSettings.GetValue("Settings", "MainSet", "BordersType")
-                );
+            this.OnWindowStartUp();
             // Zooming and panning image
             MouseWheel += MainWindow_MouseWheel;
             img.MouseDown += img_MouseDown;
@@ -171,8 +165,8 @@ namespace mpTables
                         if (!Directory.Exists(dir))
                             Directory.CreateDirectory(dir);
                         // Все таблицы в одном файле
-                        File.WriteAllBytes(Path.Combine(dir, "Tables.dwg"),
-                            Properties.Resources.Tables);
+                        //File.WriteAllBytes(Path.Combine(dir, "Tables.dwg"),Properties.Resources.Tables);
+                        ExtractEmbeddedResource(dir, "Tables.dwg", "mpTables.Resources");
                         // Вариант с несколькими таблицами мне не понравился, поэтому удаляю все файлы
                         var filesToDelete = new List<string> { "Tables_RU.dwg", "Tables_UA.dwg", "Tables_BY.dwg" };
                         foreach (var file in filesToDelete)
@@ -184,14 +178,27 @@ namespace mpTables
                     }
                     catch
                     {
-                        MpMsgWin.Show("Не удалось скопировать файл на диск!" +
-                                      Environment.NewLine +
-                                      "Возможно отсутствуют права администратора");
+                        ModPlusAPI.Windows.MessageBox.Show("Не удалось скопировать файл на диск!" +
+                                      Environment.NewLine + "Возможно отсутствуют права администратора",
+                                      MessageBoxIcon.Close);
                     }
                 }
             }
         }
-
+        private static void ExtractEmbeddedResource(string outputDir, string file, string resourceLocation)
+        {
+            using (var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceLocation + @"." + file))
+            {
+                using (var fileStream = new FileStream(Path.Combine(outputDir, file), FileMode.Create))
+                {
+                    for (int i = 0; i < stream?.Length; i++)
+                    {
+                        fileStream.WriteByte((byte)stream.ReadByte());
+                    }
+                    fileStream.Close();
+                }
+            }
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var doc = AcApp.DocumentManager.MdiActiveDocument;
@@ -229,9 +236,9 @@ namespace mpTables
                 }
                 CbTextStyle.SelectedItem = txtstname;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MpExWin.Show(ex);
+                ExceptionBox.Show(ex);
             }
             // Загружаем настройки
             LoadFromSettings();
@@ -250,47 +257,47 @@ namespace mpTables
             {
                 int index;
                 // Источник для базы (страна)
-                CbDocumentsFor.SelectedIndex = int.TryParse(MpSettings.GetValue("Settings", "mpTables", "CbDocumentsFor"), out index) ? index : 0;
+                CbDocumentsFor.SelectedIndex = int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocumentsFor"), out index) ? index : 0;
 
                 // Масштаб
-                var scale = MpSettings.GetValue("Settings", "mpTables", "CbScales");
+                var scale = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbScales");
                 CbScales.SelectedIndex = CbScales.Items.Contains(scale)
                     ? CbScales.Items.IndexOf(scale)
                     : 0;
                 // Текстовый стиль (меняем, если есть в настройках, а иначе оставляем текущий)
-                var txtstl = MpSettings.GetValue("Settings", "mpTables", "CbTextStyle");
+                var txtstl = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTextStyle");
                 if (CbTextStyle.Items.Contains(txtstl))
                     CbTextStyle.SelectedIndex = CbTextStyle.Items.IndexOf(txtstl);
                 // Динамические строчки
                 bool b;
-                ChkDynRowsStandard.IsChecked = !bool.TryParse(MpSettings.GetValue("Settings", "mpTables", "ChkDynRowsStandard"), out b) || b;
-                ChkDynRows.IsChecked = !bool.TryParse(MpSettings.GetValue("Settings", "mpTables", "ChkDynRows"), out b) || b;
+                ChkDynRowsStandard.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRowsStandard"), out b) || b;
+                ChkDynRows.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRows"), out b) || b;
                 // Высота строк
-                var rowH = MpSettings.GetValue("Settings", "mpTables", "TbRowHeight");
+                var rowH = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbRowHeight");
                 if (!string.IsNullOrEmpty(rowH))
                     TbRowHeight.Text = rowH;
                 // Высота текста
-                var txtH = MpSettings.GetValue("Settings", "mpTables", "TbTextHeight");
+                var txtH = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbTextHeight");
                 if (!string.IsNullOrEmpty(txtH))
                     TbTextHeight.Text = txtH;
                 // Привязка
                 RbBottomLeft.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbBottomLeft"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbBottomLeft"));
                 RbBottomRight.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbBottomRight"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbBottomRight"));
                 RbMnlBottomLeft.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbMnlBottomLeft"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlBottomLeft"));
                 RbMnlBottomRight.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbMnlBottomRight"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlBottomRight"));
                 RbMnlTopLeft.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbMnlTopLeft"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlTopLeft"));
                 RbMnlTopRight.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbMnlTopRight"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlTopRight"));
                 RbTopLeft.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbTopLeft"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbTopLeft"));
                 RbTopRight.IsChecked =
-                    bool.Parse(MpSettings.GetValue("Settings", "mpTables", "RbTopRight"));
-                ExpDetail.IsExpanded = bool.Parse(MpSettings.GetValue("Settings", "mpTables", "ExpDetail"));
+                    bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbTopRight"));
+                ExpDetail.IsExpanded = bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ExpDetail"));
             }
             catch
             {
@@ -301,50 +308,50 @@ namespace mpTables
         private void SaveToSettings()
         {
             // Источник для базы (страна)
-            //MpSettings.SetValue("Settings", "mpTables", "CbDocumentsFor",
+            //UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocumentsFor",
             //    CbDocumentsFor.SelectedIndex.ToString(CultureInfo.InvariantCulture), false);
             // Список отсеивания
-            //MpSettings.SetValue("Settings", "mpTables", "CbDocWeed",
+            //UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocWeed",
             //    CbDocWeed.SelectedIndex.ToString(CultureInfo.InvariantCulture), false);
             // Выбранный штамп
-            //MpSettings.SetValue("Settings", "mpTables", "CbTables",
+            //UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTables",
             //                        CbTables.SelectedIndex.ToString(CultureInfo.InvariantCulture), false);
             // Масштаб
-            MpSettings.SetValue("Settings", "mpTables", "CbScales",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbScales",
                                     CbScales.SelectedItem.ToString(), false);
             // Текстовый стиль
-            MpSettings.SetValue("Settings", "mpTables", "CbTextStyle",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTextStyle",
                                     CbTextStyle.SelectedItem.ToString(), false);
             // Динамические строчки
-            MpSettings.SetValue("Settings", "mpTables", "ChkDynRowsStandard",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRowsStandard",
                                     (ChkDynRowsStandard.IsChecked != null && ChkDynRowsStandard.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "ChkDynRows",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRows",
                                     (ChkDynRows.IsChecked != null && ChkDynRows.IsChecked.Value).ToString(), false);
 
             // Высота строк
-            MpSettings.SetValue("Settings", "mpTables", "TbRowHeight", TbRowHeight.Text, false);
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbRowHeight", TbRowHeight.Text, false);
             // Высота текста
-            MpSettings.SetValue("Settings", "mpTables", "TbTextHeight", TbTextHeight.Text, false);
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbTextHeight", TbTextHeight.Text, false);
             // Привязка
-            MpSettings.SetValue("Settings", "mpTables", "RbBottomLeft",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbBottomLeft",
                                     (RbBottomLeft.IsChecked != null && RbBottomLeft.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "RbBottomRight",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbBottomRight",
                                     (RbBottomRight.IsChecked != null && RbBottomRight.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "RbMnlBottomLeft",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlBottomLeft",
                                     (RbMnlBottomLeft.IsChecked != null && RbMnlBottomLeft.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "RbMnlBottomRight",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlBottomRight",
                                     (RbMnlBottomRight.IsChecked != null && RbMnlBottomRight.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "RbMnlTopLeft",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlTopLeft",
                                     (RbMnlTopLeft.IsChecked != null && RbMnlTopLeft.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "RbMnlTopRight",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbMnlTopRight",
                                     (RbMnlTopRight.IsChecked != null && RbMnlTopRight.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "RbTopLeft",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbTopLeft",
                                     (RbTopLeft.IsChecked != null && RbTopLeft.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "RbTopRight",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbTopRight",
                                     (RbTopRight.IsChecked != null && RbTopRight.IsChecked.Value).ToString(), false);
-            MpSettings.SetValue("Settings", "mpTables", "ExpDetail",
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ExpDetail",
                                     ExpDetail.IsExpanded.ToString(), false);
-            MpSettings.SaveFile();
+            UserConfigFile.SaveConfigFile();
         }
         // Выбор базы таблиц
         private void CbDocumentsFor_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -356,7 +363,7 @@ namespace mpTables
                 if (cb != null && comboBoxItem != null && cb.SelectedIndex != -1)
                 {
                     _tablesBase = new TablesBase(comboBoxItem.Tag.ToString());
-                    MpSettings.SetValue("Settings", "mpTables", "CbDocumentsFor", cb.SelectedIndex.ToString(CultureInfo.InvariantCulture), true);
+                    UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocumentsFor", cb.SelectedIndex.ToString(CultureInfo.InvariantCulture), true);
                 }
                 else _tablesBase = null;
                 // Заполняем список отсеивания
@@ -372,16 +379,16 @@ namespace mpTables
                     }
                     CbDocWeed.ItemsSource = lst;
                     int index;
-                    if (int.TryParse(MpSettings.GetValue("Settings", "mpTables", "CbDocWeed"), out index))
+                    if (int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocWeed"), out index))
                     {
                         CbDocWeed.SelectedIndex = CbDocWeed.Items.Count >= index ? index : 0;
                     }
                     else CbDocWeed.SelectedIndex = 0;
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MpExWin.Show(ex);
+                ExceptionBox.Show(ex);
             }
         }
         // Выбор нормативного документа
@@ -403,19 +410,19 @@ namespace mpTables
                         CbTables.ItemsSource = _tablesBase.Tables.Where(x => x.Document.Equals(selectedDocWeed));
                     }
                     int index;
-                    if (int.TryParse(MpSettings.GetValue("Settings", "mpTables", "CbTables"), out index))
+                    if (int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTables"), out index))
                     {
                         CbTables.SelectedIndex = CbTables.Items.Count >= index ? index : 0;
                     }
                     else CbTables.SelectedIndex = 0;
 
                     if (cb.SelectedIndex != -1)
-                        MpSettings.SetValue("Settings", "mpTables", "CbDocWeed", cb.SelectedIndex.ToString(CultureInfo.InvariantCulture), true);
+                        UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocWeed", cb.SelectedIndex.ToString(CultureInfo.InvariantCulture), true);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MpExWin.Show(ex);
+                ExceptionBox.Show(ex);
             }
         }
         // Выбор таблицы
@@ -461,13 +468,13 @@ namespace mpTables
                     else ClearTableInfo();
 
                     if (cb.SelectedIndex != -1)
-                        MpSettings.SetValue("Settings", "mpTables", "CbTables", cb.SelectedIndex.ToString(CultureInfo.InvariantCulture), true);
+                        UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTables", cb.SelectedIndex.ToString(CultureInfo.InvariantCulture), true);
                 }
                 else ClearTableInfo();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MpExWin.Show(ex);
+                ExceptionBox.Show(ex);
             }
         }
         // Очистка элементов, описывающих таблицу
@@ -512,9 +519,9 @@ namespace mpTables
             {
                 InsertTable(pointAligin, selectedTable);
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
-                MpExWin.Show(exception);
+                ExceptionBox.Show(exception);
             }
             finally
             {
@@ -535,7 +542,7 @@ namespace mpTables
                     var tbl = GetTableFromSource(tr, selectedTableDocumentInBase);
                     if (tbl == null)
                     {
-                        MpMsgWin.Show("Не удалось скопировать таблицу :'(");
+                        ModPlusAPI.Windows.MessageBox.Show("Не удалось скопировать таблицу :'(", MessageBoxIcon.Close);
                         return;
                     }
                     // Масштабируем до перемещения для правильного отображения
@@ -663,9 +670,9 @@ namespace mpTables
                 }
                 return tbl?.ObjectId == ObjectId.Null ? null : tbl;
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
-                MpExWin.Show(exception);
+                ExceptionBox.Show(exception);
                 return null;
             }
         }
@@ -689,12 +696,12 @@ namespace mpTables
                 {
                     TbFileFrom.Text = ofd.FileName;
                     LoadTablesFromFile(ofd.FileName, LvTablesFromDwg);
-                    MpSettings.SetValue("Settings", "mpTables", "file", ofd.FileName, true);
+                    UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "file", ofd.FileName, true);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MpExWin.Show(ex);
+                ExceptionBox.Show(ex);
             }
         }
         private void BtMnlAddTable_Click(object sender, RoutedEventArgs e)
@@ -719,7 +726,7 @@ namespace mpTables
         {
             try
             {
-                TbFileFrom.Text = MpSettings.GetValue("Settings", "mpTables", "file");
+                TbFileFrom.Text = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "file");
                 LoadTablesFromFile(TbFileFrom.Text, LvTablesFromDwg);
             }
             catch
@@ -763,11 +770,12 @@ namespace mpTables
                 }
                 lv.ItemsSource = tbls;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 if (ex.Message.Equals("eNotImplementedYet"))
-                    MpMsgWin.Show("В разделе \"Таблицы из файла\" указан файл, несовместимый с данной версией AutoCAD!");
-                else MpExWin.Show(ex);
+                    ModPlusAPI.Windows.MessageBox.Show("В разделе \"Таблицы из файла\" указан файл, несовместимый с данной версией AutoCAD!", 
+                        MessageBoxIcon.Alert);
+                else ExceptionBox.Show(ex);
             }
         }
 
@@ -857,9 +865,9 @@ namespace mpTables
                     }
                 }
             }// try
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MpExWin.Show(ex);
+                ExceptionBox.Show(ex);
             }
             finally
             {
@@ -872,7 +880,7 @@ namespace mpTables
         {
             LvTablesFromDwg.ItemsSource = null;
             TbFileFrom.Text = string.Empty;
-            MpSettings.SetValue("Settings", "mpTables", "file", string.Empty, true);
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "file", string.Empty, true);
         }
 
     }

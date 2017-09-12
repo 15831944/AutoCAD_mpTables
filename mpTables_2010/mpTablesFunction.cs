@@ -6,8 +6,10 @@ using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml.Linq;
 using Autodesk.AutoCAD.Runtime;
+using ModPlusAPI;
 
 namespace mpTables
 {
@@ -18,6 +20,8 @@ namespace mpTables
         [CommandMethod("ModPlus", "mpTables", CommandFlags.Modal)]
         public void Main()
         {
+            Statistic.SendCommandStarting(new Interface());
+            
             if (_mpTables == null)
             {
                 _mpTables = new MpTables();
@@ -50,17 +54,34 @@ namespace mpTables
             switch (documentsFor)
             {
                 case "RU":
-                    Tables = LoadTables(XElement.Parse(Properties.Resources.TablesBase_RU));
+                    Tables = LoadTables(XElement.Parse(GetResourceTextFile("TablesBase_RU.xml")));
                     break;
                 case "UA":
-                    Tables = LoadTables(XElement.Parse(Properties.Resources.TablesBase_UA));
+                    Tables = LoadTables(XElement.Parse(GetResourceTextFile("TablesBase_UA.xml")));
                     break;
                 case "BY":
-                    Tables = LoadTables(XElement.Parse(Properties.Resources.TablesBase_BY));
+                    Tables = LoadTables(XElement.Parse(GetResourceTextFile("TablesBase_BY.xml")));
                     break;
             }
             // Получаем путь к файлу чертежа с таблицами (без проверки его существования)
-            DwgFileName = GetDwgFileName(documentsFor);
+            DwgFileName = GetDwgFileName();
+        }
+        /// <summary>Чтение текстового внедренного ресурса</summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        private static string GetResourceTextFile(string filename)
+        {
+            var result = string.Empty;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream("mpTables.Resources." + filename))
+            {
+                if (stream != null)
+                    using (var sr = new StreamReader(stream))
+                    {
+                        result = sr.ReadToEnd();
+                    }
+            }
+            return result;
         }
         /// <summary>
         /// Имя файла из которого брать таблицы
@@ -69,9 +90,8 @@ namespace mpTables
         /// <summary>
         /// Получение пути к файлу с таблицами
         /// </summary>
-        /// <param name="documentFor">Код страны. Добавляется к имени файла через нижнее подчеркивание</param>
         /// <returns></returns>
-        private static string GetDwgFileName(string documentFor)
+        private static string GetDwgFileName()
         {
             var fileName = string.Empty;
             using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("ModPlus"))

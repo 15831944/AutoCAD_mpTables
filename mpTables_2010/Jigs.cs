@@ -3,8 +3,6 @@ using AcApp = Autodesk.AutoCAD.ApplicationServices.Application;
 #elif ac2013
 using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 #endif
-using ModPlus;
-using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
@@ -24,15 +22,13 @@ namespace mpTables
         public Point3d FPt; // точка вставки таблицы
         public int StopRows; // количество строк, меньше которого не удалять строки
         public double RowH;
-
-        readonly Document _doc = AcApp.DocumentManager.MdiActiveDocument;
-
+        
         public PromptResult StartJig(Table table // таблица            
             )
         {
             _tb = table;
             _prevPoint = new Point3d(0, 0, 0);
-            _line = new Line { StartPoint = MpCadHelpers.UcsToWcs(FPt) };
+            _line = new Line { StartPoint = ModPlus.Helpers.AutocadHelpers.UcsToWcs(FPt) };
             return AcApp.DocumentManager.MdiActiveDocument.Editor.Drag(this);
         }// public AcEd.PromptResult StartJig(string str)
         protected override SamplerStatus Sampler(JigPrompts prompts)

@@ -1,26 +1,34 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using mpPInterface;
+﻿using System;
+using System.Collections.Generic;
+using ModPlusAPI.Interfaces;
 
 namespace mpTables
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class Interface : IPluginInterface
+    public class Interface : IModPlusFunctionInterface
     {
-        private const string _Name = "mpTables";
-        private const string _AvailCad = "2011";
-        private const string _LName = "Таблицы";
-        private const string _Description = "Функция вставки в чертеж таблиц AutoCad согласно ГОСТам или из указанного файла";
-        private const string _Author = "Пекшев Александр aka Modis";
-        private const string _Price = "0";
-        public string Name => _Name;
-        public string AvailCad => _AvailCad;
-        public string LName => _LName;
-        public string Description => _Description;
-        public string Author => _Author;
-        public string Price => _Price;
+        public SupportedProduct SupportedProduct => SupportedProduct.AutoCAD;
+        public string Name => "mpTables";
+        public string AvailProductExternalVersion => "2011";
+        public string FullClassName => string.Empty;
+        public string AppFullClassName => string.Empty;
+        public Guid AddInId => Guid.Empty;
+        public string LName => "Таблицы";
+        public string Description => "Функция вставки в чертеж таблиц AutoCad согласно ГОСТам или из указанного файла";
+        public string Author => "Пекшев Александр aka Modis";
+        public string Price => "0";
+        public bool CanAddToRibbon => true;
+        public string FullDescription => string.Empty;
+        public string ToolTipHelpImage => string.Empty;
+        public List<string> SubFunctionsNames => new List<string>();
+        public List<string> SubFunctionsLames => new List<string>();
+        public List<string> SubDescriptions => new List<string>();
+        public List<string> SubFullDescriptions => new List<string>();
+        public List<string> SubHelpImages => new List<string>();
+        public List<string> SubClassNames => new List<string>();
     }
-    public class VersionData
+
+    public static class VersionData
     {
-        public const string FuncVersion = "2011";
+        public static string FuncVersion = "2011";
     }
 }

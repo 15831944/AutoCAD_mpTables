@@ -19,10 +19,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="BtStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SquareMetroButton}">
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
             <Style x:Key="LvNoHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
                 <Setter Property="Visibility" Value="Collapsed" />
             </Style>
@@ -206,11 +204,9 @@
                                   Margin="2" Content="Динамическая вставка строк"></CheckBox>
                     </Grid>
                     <Button Grid.Row="6" Content="Вставить"
-                        Style="{StaticResource BtStyle}"
                         Name="BtAddTable" MinWidth="75"  MaxWidth="150"
                         Margin="2" HorizontalAlignment="Center" Click="BtAddTable_Click"/>
                     <Button Grid.Row="6" Content="Закрыть" Visibility="Collapsed"
-                        Style="{StaticResource BtStyle}"
                         Name="Cancel" MinWidth="75" MaxWidth="150"
                         Margin="2" HorizontalAlignment="Right" Click="Cancel_Click"/>
                 </Grid>
@@ -243,7 +239,7 @@
                            Margin="2" VerticalAlignment="Center"></TextBlock>
                     <TextBox x:Name="TbFileFrom" Grid.Column="1" Grid.Row="0" Margin="2"
                          IsReadOnly="True" VerticalAlignment="Center" TextWrapping="NoWrap"></TextBox>
-                    <Button Name="BtClearFileFrom" Grid.Row="0" Grid.Column="2" Style="{StaticResource BtStyle}"
+                    <Button Name="BtClearFileFrom" Grid.Row="0" Grid.Column="2" 
                         Margin="2" Padding="2" ToolTip="Очистить путь к файлу" Click="BtClearFileFrom_OnClick">
                         <Rectangle Fill="{DynamicResource AccentColorBrush}"
                                Width="20" Height="20">
@@ -253,7 +249,7 @@
                         </Rectangle>
                     </Button>
                     <Button x:Name="BtDwgFile" Grid.Column="3" Grid.Row="0" Margin="2"
-                        Style="{StaticResource BtStyle}" Padding="2" ToolTip="Указать путь к файлу"
+                        Padding="2" ToolTip="Указать путь к файлу"
                         VerticalAlignment="Center" Click="BtDwgFile_Click">
                         <Rectangle Fill="{DynamicResource AccentColorBrush}"
                                Width="20" Height="20">
@@ -301,7 +297,6 @@
                           Margin="2" Content="Динамическая вставка строк"></CheckBox>
                     <!--Кнопки-->
                     <Button Grid.Row="4" Content="Вставить"
-                        Style="{StaticResource BtStyle}"
                         Grid.Column="0" Grid.ColumnSpan="4" Click="BtMnlAddTable_Click"
                         Name="BtMnlAddTable" MinWidth="75"  MaxWidth="150"
                         Margin="2" HorizontalAlignment="Center"/>
