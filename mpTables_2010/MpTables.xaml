@@ -146,7 +146,7 @@
                                          Name="RbBottomRight" ToolTip="Вставка таблицы с привязкой Низ-право" Panel.ZIndex="1"></RadioButton>
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
                                 <Button Style="{DynamicResource MetroCircleButtonStyle}" 
-                                        Margin="0,0,10,0" Width="36" Height="36" BorderBrush="{StaticResource AccentColorBrush}"
+                                        Margin="0,0,10,0" Width="36" Height="36" BorderBrush="{DynamicResource AccentColorBrush}"
                                         Background="Transparent" ToolTip="Уменьшить изображение"
                                         Name="BtImageSmall" Click="BtImageSmall_OnClick" BorderThickness="1">
                                     <Rectangle Fill="{StaticResource AccentColorBrush}"
@@ -157,7 +157,7 @@
                                     </Rectangle>
                                 </Button>
                                 <Button Style="{DynamicResource MetroCircleButtonStyle}" 
-                                        Margin="10,0,0,0" Width="36" Height="36" BorderBrush="{StaticResource AccentColorBrush}"
+                                        Margin="10,0,0,0" Width="36" Height="36" BorderBrush="{DynamicResource AccentColorBrush}"
                                         Background="Transparent" ToolTip="Увеличить изображение"
                                         Name="BtImageBig" Click="BtImageBig_OnClick" BorderThickness="1">
                                     <Rectangle Fill="{StaticResource AccentColorBrush}"
