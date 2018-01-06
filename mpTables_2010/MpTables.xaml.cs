@@ -24,11 +24,9 @@ using Visibility = System.Windows.Visibility;
 
 namespace mpTables
 {
-    /// <summary>
-    /// Логика взаимодействия для MpTables.xaml
-    /// </summary>
     public partial class MpTables
     {
+        private const string LangItem = "mpTables";
         // Текущий документ с таблицами
         private TablesBase _tablesBase;
 
@@ -115,10 +113,6 @@ namespace mpTables
             img.RenderTransform = new MatrixTransform(m);
         }
         #endregion
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
             Focus();
@@ -165,7 +159,6 @@ namespace mpTables
                         if (!Directory.Exists(dir))
                             Directory.CreateDirectory(dir);
                         // Все таблицы в одном файле
-                        //File.WriteAllBytes(Path.Combine(dir, "Tables.dwg"),Properties.Resources.Tables);
                         ExtractEmbeddedResource(dir, "Tables.dwg", "mpTables.Resources");
                         // Вариант с несколькими таблицами мне не понравился, поэтому удаляю все файлы
                         var filesToDelete = new List<string> { "Tables_RU.dwg", "Tables_UA.dwg", "Tables_BY.dwg" };
@@ -178,8 +171,7 @@ namespace mpTables
                     }
                     catch
                     {
-                        ModPlusAPI.Windows.MessageBox.Show("Не удалось скопировать файл на диск!" +
-                                      Environment.NewLine + "Возможно отсутствуют права администратора",
+                        ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "msg1"),
                                       MessageBoxIcon.Close);
                     }
                 }
@@ -255,9 +247,8 @@ namespace mpTables
             // то просто оборачиваем в try{}
             try
             {
-                int index;
                 // Источник для базы (страна)
-                CbDocumentsFor.SelectedIndex = int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocumentsFor"), out index) ? index : 0;
+                CbDocumentsFor.SelectedIndex = int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocumentsFor"), out int index) ? index : 0;
 
                 // Масштаб
                 var scale = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbScales");
@@ -269,8 +260,7 @@ namespace mpTables
                 if (CbTextStyle.Items.Contains(txtstl))
                     CbTextStyle.SelectedIndex = CbTextStyle.Items.IndexOf(txtstl);
                 // Динамические строчки
-                bool b;
-                ChkDynRowsStandard.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRowsStandard"), out b) || b;
+                ChkDynRowsStandard.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRowsStandard"), out var b) || b;
                 ChkDynRows.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRows"), out b) || b;
                 // Высота строк
                 var rowH = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbRowHeight");
@@ -307,15 +297,6 @@ namespace mpTables
         // Сохранение в файл настроек
         private void SaveToSettings()
         {
-            // Источник для базы (страна)
-            //UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocumentsFor",
-            //    CbDocumentsFor.SelectedIndex.ToString(CultureInfo.InvariantCulture), false);
-            // Список отсеивания
-            //UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocWeed",
-            //    CbDocWeed.SelectedIndex.ToString(CultureInfo.InvariantCulture), false);
-            // Выбранный штамп
-            //UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTables",
-            //                        CbTables.SelectedIndex.ToString(CultureInfo.InvariantCulture), false);
             // Масштаб
             UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbScales",
                                     CbScales.SelectedItem.ToString(), false);
@@ -358,9 +339,7 @@ namespace mpTables
         {
             try
             {
-                var cb = sender as ComboBox;
-                var comboBoxItem = cb?.SelectedItem as ComboBoxItem;
-                if (cb != null && comboBoxItem != null && cb.SelectedIndex != -1)
+                if (sender is ComboBox cb && cb.SelectedItem is ComboBoxItem comboBoxItem && cb.SelectedIndex != -1)
                 {
                     _tablesBase = new TablesBase(comboBoxItem.Tag.ToString());
                     UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocumentsFor", cb.SelectedIndex.ToString(CultureInfo.InvariantCulture), true);
@@ -370,7 +349,7 @@ namespace mpTables
                 CbDocWeed.ItemsSource = null;
                 if (_tablesBase?.Tables != null)
                 {
-                    var lst = new List<string> { "Все" };
+                    var lst = new List<string> { ModPlusAPI.Language.GetItem(LangItem, "all") };
                     foreach (var tableDocumentInBase in _tablesBase.Tables)
                     {
                         if (!lst.Contains(tableDocumentInBase.Document) &
@@ -378,8 +357,7 @@ namespace mpTables
                             lst.Add(tableDocumentInBase.Document);
                     }
                     CbDocWeed.ItemsSource = lst;
-                    int index;
-                    if (int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocWeed"), out index))
+                    if (int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbDocWeed"), out var index))
                     {
                         CbDocWeed.SelectedIndex = CbDocWeed.Items.Count >= index ? index : 0;
                     }
@@ -409,8 +387,7 @@ namespace mpTables
                         var selectedDocWeed = cb.SelectedItem.ToString();
                         CbTables.ItemsSource = _tablesBase.Tables.Where(x => x.Document.Equals(selectedDocWeed));
                     }
-                    int index;
-                    if (int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTables"), out index))
+                    if (int.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "CbTables"), out var index))
                     {
                         CbTables.SelectedIndex = CbTables.Items.Count >= index ? index : 0;
                     }
@@ -430,11 +407,9 @@ namespace mpTables
         {
             try
             {
-                var cb = sender as ComboBox;
-                if (cb != null && cb.Items.Count > 0)
+                if (sender is ComboBox cb && cb.Items.Count > 0)
                 {
-                    var selectedTable = cb.SelectedItem as TableDocumentInBase;
-                    if (selectedTable != null)
+                    if (cb.SelectedItem is TableDocumentInBase selectedTable)
                     {
                         // Нормативный документ
                         LiDocument.Text = selectedTable.Document;
@@ -506,8 +481,7 @@ namespace mpTables
         // Вставка 
         private void BtAddTable_Click(object sender, RoutedEventArgs e)
         {
-            var selectedTable = CbTables.SelectedItem as TableDocumentInBase;
-            if (selectedTable == null) return;
+            if (!(CbTables.SelectedItem is TableDocumentInBase selectedTable)) return;
             // привязка точки вставки
             var pointAligin = "TopLeft";
             if (RbBottomLeft.IsChecked != null && RbBottomLeft.IsChecked.Value) pointAligin = "BottomLeft";
@@ -542,7 +516,7 @@ namespace mpTables
                     var tbl = GetTableFromSource(tr, selectedTableDocumentInBase);
                     if (tbl == null)
                     {
-                        ModPlusAPI.Windows.MessageBox.Show("Не удалось скопировать таблицу :'(", MessageBoxIcon.Close);
+                        ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "msg2"), MessageBoxIcon.Close);
                         return;
                     }
                     // Масштабируем до перемещения для правильного отображения
@@ -685,12 +659,12 @@ namespace mpTables
             {
                 var ofd = new System.Windows.Forms.OpenFileDialog
                 {
-                    Filter = @"Файл чертежа (*.DWG)|*.DWG",
+                    Filter = ModPlusAPI.Language.GetItem(LangItem, "h33") + " (*.DWG)|*.DWG",
                     CheckFileExists = true,
                     CheckPathExists = true,
                     Multiselect = false,
                     ShowHelp = false,
-                    Title = @"Выберите файл"
+                    Title = ModPlusAPI.Language.GetItem(LangItem, "h34")
                 };
                 if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -773,7 +747,7 @@ namespace mpTables
             catch (Exception ex)
             {
                 if (ex.Message.Equals("eNotImplementedYet"))
-                    ModPlusAPI.Windows.MessageBox.Show("В разделе \"Таблицы из файла\" указан файл, несовместимый с данной версией AutoCAD!", 
+                    ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "msg3"), 
                         MessageBoxIcon.Alert);
                 else ExceptionBox.Show(ex);
             }
@@ -792,8 +766,7 @@ namespace mpTables
                 // Блокируем документ
                 using (doc.LockDocument())
                 {
-                    Transaction tr = doc.TransactionManager.StartTransaction();
-                    using (tr)
+                    using (Transaction tr = doc.TransactionManager.StartTransaction())
                     {
                         // Read the DWG into a side database
                         sourceDb.ReadDwgFile(file, FileShare.Read, true, string.Empty);
