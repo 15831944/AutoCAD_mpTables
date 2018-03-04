@@ -19,7 +19,6 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.DatabaseServices;
 using ModPlusAPI;
 using ModPlusAPI.Windows;
-using ModPlusAPI.Windows.Helpers;
 using Visibility = System.Windows.Visibility;
 
 namespace mpTables
@@ -33,7 +32,7 @@ namespace mpTables
         public MpTables()
         {
             InitializeComponent();
-            this.OnWindowStartUp();
+            Title = ModPlusAPI.Language.GetItem(LangItem, "h1");
             // Zooming and panning image
             MouseWheel += MainWindow_MouseWheel;
             img.MouseDown += img_MouseDown;
@@ -138,10 +137,7 @@ namespace mpTables
             if (!short.TryParse(e.Text, out val) && !e.Text.Equals("."))
                 e.Handled = true;
         }
-        private void MpTables_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+        
         #endregion
         // Распаковка файла с таблицами
         private static void ExtractTablesDwg()
