@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2010", "mpTables_2010\mpTables_2010.csproj", "{B62E1FB9-01A1-4415-9A59-0942D3B0A81E}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2017", "mpTables_2017\mpTables_2017.csproj", "{1BE36E55-8874-4DD4-8B19-E722B9B1897B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2018", "mpTables_2018\mpTables_2018.csproj", "{2F93A8CD-3133-4021-A86A-31E8E6ACF757}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2019", "mpTables_2019\mpTables_2019.csproj", "{A10D345D-9D4F-4B63-B56E-79D90F5F594C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,8 +65,15 @@ Global
 		{2F93A8CD-3133-4021-A86A-31E8E6ACF757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F93A8CD-3133-4021-A86A-31E8E6ACF757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F93A8CD-3133-4021-A86A-31E8E6ACF757}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A10D345D-9D4F-4B63-B56E-79D90F5F594C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A10D345D-9D4F-4B63-B56E-79D90F5F594C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A10D345D-9D4F-4B63-B56E-79D90F5F594C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A10D345D-9D4F-4B63-B56E-79D90F5F594C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {730EBD05-4DA5-48AF-B464-DB91573C797C}
 	EndGlobalSection
 EndGlobal
