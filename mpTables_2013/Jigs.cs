@@ -1,18 +1,16 @@
-﻿#if ac2010
-using AcApp = Autodesk.AutoCAD.ApplicationServices.Application;
-#elif ac2013
-using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-#endif
+﻿using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 using Autodesk.AutoCAD.DatabaseServices;
+using ModPlusAPI;
 
 namespace mpTables
 {
     // jig
     public class TableAddCellsJig : DrawJig
     {
+        private const string LangItem = "mpTables";
         private Point3d _prevPoint; // Предыдущая точка
         private Point3d _currPoint; // Нинешняя точка
         private Line _line;
@@ -33,7 +31,7 @@ namespace mpTables
         }// public AcEd.PromptResult StartJig(string str)
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
-            var jppo = new JigPromptPointOptions("\nУкажите вторую точку: ")
+            var jppo = new JigPromptPointOptions("\n" + Language.GetItem(LangItem, "msg5") + ": ")
             {
                 BasePoint = _line.StartPoint,
                 UseBasePoint = true,
@@ -84,6 +82,7 @@ namespace mpTables
 
     public class TableDrag : DrawJig
     {
+        private const string LangItem = "mpTables";
         private Point3d _prevPoint; // Предыдущая точка
         private Point3d _currPoint; // Нинешняя точка
         private Table _table;
@@ -104,7 +103,7 @@ namespace mpTables
         }
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
-            var jppo = new JigPromptPointOptions("\nТочка вставки: ")
+            var jppo = new JigPromptPointOptions("\n" + Language.GetItem(LangItem, "msg4") + ": ")
             {
                 UserInputControls = (UserInputControls.Accept3dCoordinates
                                          | UserInputControls.NoZeroResponseAccepted

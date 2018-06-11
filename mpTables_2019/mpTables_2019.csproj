@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\mpTables\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ac2013</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -25,21 +25,21 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\mpTables\</OutputPath>
-    <DefineConstants>TRACE;ac2013</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="accoremgd">
-      <HintPath>..\..\..\..\_Acad dlls\2019\accoremgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2019\accoremgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgd">
-      <HintPath>..\..\..\..\_Acad dlls\2019\acdbmgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2019\acdbmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acmgd">
-      <HintPath>..\..\..\..\_Acad dlls\2019\acmgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2019\acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro">
@@ -69,327 +69,335 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\mpTables_2010\Jigs.cs">
+    <Compile Include="..\mpTables_2013\Jigs.cs">
       <Link>Jigs.cs</Link>
     </Compile>
-    <Compile Include="..\mpTables_2010\MpTables.xaml.cs">
+    <Compile Include="..\mpTables_2013\MpTables.xaml.cs">
       <Link>MpTables.xaml.cs</Link>
       <DependentUpon>MpTables.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpTables_2010\mpTablesFunction.cs">
+    <Compile Include="..\mpTables_2013\mpTablesFunction.cs">
       <Link>mpTablesFunction.cs</Link>
     </Compile>
     <Compile Include="Interface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpTables_2010\Resources\Flags\belarus_thin_rectangular_icon_64.png">
+    <Resource Include="..\mpTables_2013\Resources\Flags\belarus_thin_rectangular_icon_64.png">
       <Link>Resources\Flags\belarus_thin_rectangular_icon_64.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Flags\russia_thin_rectangular_icon_64.png">
+    <Resource Include="..\mpTables_2013\Resources\Flags\russia_thin_rectangular_icon_64.png">
       <Link>Resources\Flags\russia_thin_rectangular_icon_64.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Flags\ukraine_thin_rectangular_icon_64.png">
+    <Resource Include="..\mpTables_2013\Resources\Flags\ukraine_thin_rectangular_icon_64.png">
       <Link>Resources\Flags\ukraine_thin_rectangular_icon_64.png</Link>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpTables_2010\Resources\Images\BY\img_0.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\BY\img_0.png">
       <Link>Resources\Images\BY\img_0.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\BY\img_1.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\BY\img_1.png">
       <Link>Resources\Images\BY\img_1.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\BY\img_2.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\BY\img_2.png">
       <Link>Resources\Images\BY\img_2.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\BY\img_3.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\BY\img_3.png">
       <Link>Resources\Images\BY\img_3.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\BY\img_4.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\BY\img_4.png">
       <Link>Resources\Images\BY\img_4.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\BY\img_5.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\BY\img_5.png">
       <Link>Resources\Images\BY\img_5.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\BY\img_6.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\BY\img_6.png">
       <Link>Resources\Images\BY\img_6.png</Link>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_0.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_0.png">
       <Link>Resources\Images\RU\img_0.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_1.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_1.png">
       <Link>Resources\Images\RU\img_1.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_10.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_10.png">
       <Link>Resources\Images\RU\img_10.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_11.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_11.png">
       <Link>Resources\Images\RU\img_11.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_12.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_12.png">
       <Link>Resources\Images\RU\img_12.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_13.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_13.png">
       <Link>Resources\Images\RU\img_13.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_14.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_14.png">
       <Link>Resources\Images\RU\img_14.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_15.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_15.png">
       <Link>Resources\Images\RU\img_15.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_16.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_16.png">
       <Link>Resources\Images\RU\img_16.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_17.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_17.png">
       <Link>Resources\Images\RU\img_17.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_18.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_18.png">
       <Link>Resources\Images\RU\img_18.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_19.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_19.png">
       <Link>Resources\Images\RU\img_19.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_2.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_2.png">
       <Link>Resources\Images\RU\img_2.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_20.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_20.png">
       <Link>Resources\Images\RU\img_20.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_21.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_21.png">
       <Link>Resources\Images\RU\img_21.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_22.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_22.png">
       <Link>Resources\Images\RU\img_22.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_23.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_23.png">
       <Link>Resources\Images\RU\img_23.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_24.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_24.png">
       <Link>Resources\Images\RU\img_24.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_25.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_25.png">
       <Link>Resources\Images\RU\img_25.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_26.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_26.png">
       <Link>Resources\Images\RU\img_26.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_27.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_27.png">
       <Link>Resources\Images\RU\img_27.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_28.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_28.png">
       <Link>Resources\Images\RU\img_28.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_29.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_29.png">
       <Link>Resources\Images\RU\img_29.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_3.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_3.png">
       <Link>Resources\Images\RU\img_3.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_30.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_30.png">
       <Link>Resources\Images\RU\img_30.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_31.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_31.png">
       <Link>Resources\Images\RU\img_31.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_32.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_32.png">
       <Link>Resources\Images\RU\img_32.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_33.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_33.png">
       <Link>Resources\Images\RU\img_33.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_34.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_34.png">
       <Link>Resources\Images\RU\img_34.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_35.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_35.png">
       <Link>Resources\Images\RU\img_35.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_36.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_36.png">
       <Link>Resources\Images\RU\img_36.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_37.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_37.png">
       <Link>Resources\Images\RU\img_37.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_38.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_38.png">
       <Link>Resources\Images\RU\img_38.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_39.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_39.png">
       <Link>Resources\Images\RU\img_39.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_4.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_4.png">
       <Link>Resources\Images\RU\img_4.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_40.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_40.png">
       <Link>Resources\Images\RU\img_40.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_41.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_41.png">
       <Link>Resources\Images\RU\img_41.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_42.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_42.png">
       <Link>Resources\Images\RU\img_42.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_43.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_43.png">
       <Link>Resources\Images\RU\img_43.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_44.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_44.png">
       <Link>Resources\Images\RU\img_44.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_45.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_45.png">
       <Link>Resources\Images\RU\img_45.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_46.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_46.png">
       <Link>Resources\Images\RU\img_46.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_47.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_47.png">
       <Link>Resources\Images\RU\img_47.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_48.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_48.png">
       <Link>Resources\Images\RU\img_48.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_49.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_49.png">
       <Link>Resources\Images\RU\img_49.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_5.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_5.png">
       <Link>Resources\Images\RU\img_5.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_50.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_50.png">
       <Link>Resources\Images\RU\img_50.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_51.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_51.png">
       <Link>Resources\Images\RU\img_51.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_52.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_52.png">
       <Link>Resources\Images\RU\img_52.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_53.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_53.png">
       <Link>Resources\Images\RU\img_53.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_54.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_54.png">
       <Link>Resources\Images\RU\img_54.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_55.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_55.png">
       <Link>Resources\Images\RU\img_55.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_56.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_56.png">
       <Link>Resources\Images\RU\img_56.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_57.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_57.png">
       <Link>Resources\Images\RU\img_57.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_58.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_58.png">
       <Link>Resources\Images\RU\img_58.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_59.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_59.png">
       <Link>Resources\Images\RU\img_59.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_6.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_6.png">
       <Link>Resources\Images\RU\img_6.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_60.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_60.png">
       <Link>Resources\Images\RU\img_60.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_61.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_61.png">
       <Link>Resources\Images\RU\img_61.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_62.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_62.png">
       <Link>Resources\Images\RU\img_62.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_63.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_63.png">
       <Link>Resources\Images\RU\img_63.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_64.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_64.png">
       <Link>Resources\Images\RU\img_64.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_65.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_65.png">
       <Link>Resources\Images\RU\img_65.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_66.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_66.png">
       <Link>Resources\Images\RU\img_66.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_67.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_67.png">
       <Link>Resources\Images\RU\img_67.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_68.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_68.png">
       <Link>Resources\Images\RU\img_68.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_69.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_69.png">
       <Link>Resources\Images\RU\img_69.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_7.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_7.png">
       <Link>Resources\Images\RU\img_7.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_8.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_8.png">
       <Link>Resources\Images\RU\img_8.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\RU\img_9.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_9.png">
       <Link>Resources\Images\RU\img_9.png</Link>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_0.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_0.png">
       <Link>Resources\Images\UA\img_0.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_1.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_1.png">
       <Link>Resources\Images\UA\img_1.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_2.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_2.png">
       <Link>Resources\Images\UA\img_2.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_3.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_3.png">
       <Link>Resources\Images\UA\img_3.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_4.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_4.png">
       <Link>Resources\Images\UA\img_4.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_5.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_5.png">
       <Link>Resources\Images\UA\img_5.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_6.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_6.png">
       <Link>Resources\Images\UA\img_6.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_7.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_7.png">
       <Link>Resources\Images\UA\img_7.png</Link>
     </Resource>
-    <Resource Include="..\mpTables_2010\Resources\Images\UA\img_8.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\UA\img_8.png">
       <Link>Resources\Images\UA\img_8.png</Link>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpTables_2010\Resources\Images\NoImage.png">
+    <Resource Include="..\mpTables_2013\Resources\Images\NoImage.png">
       <Link>Resources\Images\NoImage.png</Link>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpTables_2010\Resources\MpTables_16x16.png">
-      <Link>Resources\MpTables_16x16.png</Link>
-    </Resource>
-    <Resource Include="..\mpTables_2010\Resources\MpTables_32x32.png">
-      <Link>Resources\MpTables_32x32.png</Link>
-    </Resource>
-    <EmbeddedResource Include="..\mpTables_2010\Resources\TablesBase_BY.xml">
+    <EmbeddedResource Include="..\mpTables_2013\Resources\TablesBase_BY.xml">
       <Link>Resources\TablesBase_BY.xml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\mpTables_2010\Resources\TablesBase_RU.xml">
+    <EmbeddedResource Include="..\mpTables_2013\Resources\TablesBase_RU.xml">
       <Link>Resources\TablesBase_RU.xml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\mpTables_2010\Resources\TablesBase_UA.xml">
+    <EmbeddedResource Include="..\mpTables_2013\Resources\TablesBase_UA.xml">
       <Link>Resources\TablesBase_UA.xml</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\mpTables_2010\Resources\Tables.dwg">
+    <EmbeddedResource Include="..\mpTables_2013\Resources\Tables.dwg">
       <Link>Resources\Tables.dwg</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\mpTables_2010\MpTables.xaml">
+    <Page Include="..\mpTables_2013\MpTables.xaml">
       <Link>MpTables.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mpTables_2013\Resources\mpTables_16x16.png">
+      <Link>Resources\mpTables_16x16.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\mpTables_16x16_dark.png">
+      <Link>Resources\mpTables_16x16_dark.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\mpTables_32x32.png">
+      <Link>Resources\mpTables_32x32.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\mpTables_32x32_dark.png">
+      <Link>Resources\mpTables_32x32_dark.png</Link>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

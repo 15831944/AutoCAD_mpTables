@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2010", "mpTables_2010\mpTables_2010.csproj", "{B62E1FB9-01A1-4415-9A59-0942D3B0A81E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2011", "mpTables_2011\mpTables_2011.csproj", "{982A3980-B8A3-44CE-BBB5-8CA0CAD613F3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2012", "mpTables_2012\mpTables_2012.csproj", "{E4AAA96A-0241-498F-843E-CCD8C19A8765}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2013", "mpTables_2013\mpTables_2013.csproj", "{7A106CF5-FEF1-4970-918A-E96491E895E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpTables_2014", "mpTables_2014\mpTables_2014.csproj", "{F672A686-CF2B-4FAE-8888-16C2A4D3E7C3}"
@@ -29,18 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B62E1FB9-01A1-4415-9A59-0942D3B0A81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B62E1FB9-01A1-4415-9A59-0942D3B0A81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B62E1FB9-01A1-4415-9A59-0942D3B0A81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B62E1FB9-01A1-4415-9A59-0942D3B0A81E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{982A3980-B8A3-44CE-BBB5-8CA0CAD613F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{982A3980-B8A3-44CE-BBB5-8CA0CAD613F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{982A3980-B8A3-44CE-BBB5-8CA0CAD613F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{982A3980-B8A3-44CE-BBB5-8CA0CAD613F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4AAA96A-0241-498F-843E-CCD8C19A8765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4AAA96A-0241-498F-843E-CCD8C19A8765}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4AAA96A-0241-498F-843E-CCD8C19A8765}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4AAA96A-0241-498F-843E-CCD8C19A8765}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A106CF5-FEF1-4970-918A-E96491E895E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A106CF5-FEF1-4970-918A-E96491E895E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A106CF5-FEF1-4970-918A-E96491E895E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
