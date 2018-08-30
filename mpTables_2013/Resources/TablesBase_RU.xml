@@ -101,15 +101,15 @@
 	></Table>
 	<Table
 	name="Состав проектной документации"
-	tablestylename="Mp_GOST_P_21.1101_F13"
+	tablestylename="Mp_GOST_P_21.1101_F14"
 	document="ГОСТ Р 21.1101-2013"
-	description="Приложение Р. Форма 13"
+	description="Приложение Р. Форма 14"
 	img="img_8"
 	DataRow="2"
     DynRow="True"
 	NameToHeader="True"
 	></Table>
-	<Table
+	<!--<Table
 	name="Состав отчетной документации по инженерным изысканиям"
 	tablestylename="Mp_GOST_P_21.1101_F14"
 	document="ГОСТ Р 21.1101-2013"
@@ -118,7 +118,7 @@
 	DataRow="2"
 	DynRow="True"
 	NameToHeader="True"
-	></Table>
+	></Table>-->
 	<Table
 	name="Ведомость разработок чертежа"
 	tablestylename="Mp_GOST_21.508_F1"

@@ -11,8 +11,8 @@ namespace mpTables
     public class TableAddCellsJig : DrawJig
     {
         private const string LangItem = "mpTables";
-        private Point3d _prevPoint; // Предыдущая точка
-        private Point3d _currPoint; // Нинешняя точка
+        private Point3d _prevPoint; 
+        private Point3d _currentPoint; 
         private Line _line;
 
         private Table _tb;
@@ -41,19 +41,19 @@ namespace mpTables
                 | UserInputControls.NoNegativeResponseAccepted)
             };
             var rs = prompts.AcquirePoint(jppo);
-            _currPoint = rs.Value;
+            _currentPoint = rs.Value;
             if (rs.Status != PromptStatus.OK) return SamplerStatus.Cancel;
             if (CursorHasMoved())
             {
-                _line.EndPoint = _currPoint;
-                _prevPoint = _currPoint;
+                _line.EndPoint = _currentPoint;
+                _prevPoint = _currentPoint;
                 return SamplerStatus.OK;
             }
             return SamplerStatus.NoChange;
         }
         private bool CursorHasMoved()
         {
-            return _currPoint.DistanceTo(_prevPoint) > 1e-16;
+            return _currentPoint.DistanceTo(_prevPoint) > 1e-16;
         }
         protected override bool WorldDraw(WorldDraw draw)
         {
@@ -83,15 +83,15 @@ namespace mpTables
     public class TableDrag : DrawJig
     {
         private const string LangItem = "mpTables";
-        private Point3d _prevPoint; // Предыдущая точка
-        private Point3d _currPoint; // Нинешняя точка
+        private Point3d _prevPoint; 
+        private Point3d _currentPoint;
         private Table _table;
-        private string _pointAligin;
+        private string _pointAlign;
 
         public PromptResult StartJig(Table table, string ptAlign)
         {
             _table = table;
-            _pointAligin = ptAlign;
+            _pointAlign = ptAlign;
             _prevPoint = new Point3d(0, 0, 0);
 
             return AcApp.DocumentManager.MdiActiveDocument.Editor.Drag(this);
@@ -111,31 +111,31 @@ namespace mpTables
                                          | UserInputControls.NoNegativeResponseAccepted)
             };
             var rs = prompts.AcquirePoint(jppo);
-            _currPoint = rs.Value;
+            _currentPoint = rs.Value;
             if (rs.Status != PromptStatus.OK) return SamplerStatus.Cancel;
             if (CursorHasMoved())
             {
-                _prevPoint = _currPoint;
+                _prevPoint = _currentPoint;
                 return SamplerStatus.OK;
             }
             return SamplerStatus.NoChange;
         }
         private bool CursorHasMoved()
         {
-            return _currPoint.DistanceTo(_prevPoint) > 1e-3;
+            return _currentPoint.DistanceTo(_prevPoint) > 1e-3;
         }
         protected override bool WorldDraw(WorldDraw draw)
         {
             try
             {
-                var mInsertPt = _currPoint;
-                if (_pointAligin.Equals("TopLeft")) mInsertPt = _currPoint;
-                if (_pointAligin.Equals("TopRight"))
-                    mInsertPt = new Point3d(_currPoint.X - _table.Width, _currPoint.Y, _currPoint.Z);
-                if (_pointAligin.Equals("BottomLeft"))
-                    mInsertPt = new Point3d(_currPoint.X, _currPoint.Y + _table.Height, _currPoint.Z);
-                if (_pointAligin.Equals("BottomRight"))
-                    mInsertPt = new Point3d(_currPoint.X - _table.Width, _currPoint.Y + _table.Height, _currPoint.Z);
+                var mInsertPt = _currentPoint;
+                if (_pointAlign.Equals("TopLeft")) mInsertPt = _currentPoint;
+                if (_pointAlign.Equals("TopRight"))
+                    mInsertPt = new Point3d(_currentPoint.X - _table.Width, _currentPoint.Y, _currentPoint.Z);
+                if (_pointAlign.Equals("BottomLeft"))
+                    mInsertPt = new Point3d(_currentPoint.X, _currentPoint.Y + _table.Height, _currentPoint.Z);
+                if (_pointAlign.Equals("BottomRight"))
+                    mInsertPt = new Point3d(_currentPoint.X - _table.Width, _currentPoint.Y + _table.Height, _currentPoint.Z);
 
                 _table.Position = mInsertPt;
 

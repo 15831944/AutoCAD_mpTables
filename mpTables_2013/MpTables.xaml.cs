@@ -42,7 +42,9 @@ namespace mpTables
             // Распаковка файла с таблицами
             ExtractTablesDwg();
         }
+
         #region Работа окна
+
         #region Zooming and panning image
         private Point _origin;
         private Point _start;
@@ -108,6 +110,7 @@ namespace mpTables
             img.RenderTransform = new MatrixTransform(m);
         }
         #endregion
+
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
             Focus();
@@ -135,6 +138,7 @@ namespace mpTables
         }
         
         #endregion
+
         // Распаковка файла с таблицами
         private static void ExtractTablesDwg()
         {
@@ -169,6 +173,7 @@ namespace mpTables
                 }
             }
         }
+
         private static void ExtractEmbeddedResource(string outputDir, string file, string resourceLocation)
         {
             using (var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceLocation + @"." + file))
@@ -183,6 +188,7 @@ namespace mpTables
                 }
             }
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var doc = AcApp.DocumentManager.MdiActiveDocument;
@@ -232,6 +238,7 @@ namespace mpTables
         {
             SaveToSettings();
         }
+
         // Загрузка значений из файла настроек
         private void LoadFromSettings()
         {
@@ -286,6 +293,7 @@ namespace mpTables
                 // ignored
             }
         }
+
         // Сохранение в файл настроек
         private void SaveToSettings()
         {
@@ -326,6 +334,7 @@ namespace mpTables
                                     ExpDetail.IsExpanded.ToString(), false);
             UserConfigFile.SaveConfigFile();
         }
+
         // Выбор базы таблиц
         private void CbDocumentsFor_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -361,6 +370,7 @@ namespace mpTables
                 ExceptionBox.Show(ex);
             }
         }
+
         // Выбор нормативного документа
         private void CbDocWeed_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -394,6 +404,7 @@ namespace mpTables
                 ExceptionBox.Show(ex);
             }
         }
+
         // Выбор таблицы
         private void CbTables_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -444,6 +455,7 @@ namespace mpTables
                 ExceptionBox.Show(ex);
             }
         }
+
         // Очистка элементов, описывающих таблицу
         private void ClearTableInfo()
         {
@@ -494,7 +506,8 @@ namespace mpTables
                 Show();
             }
         }
-        private void InsertTable(string pointAligin, TableDocumentInBase selectedTableDocumentInBase)
+
+        private void InsertTable(string pointAlign, TableDocumentInBase selectedTableDocumentInBase)
         {
             var doc = AcApp.DocumentManager.MdiActiveDocument;
             var db = doc.Database;
@@ -518,8 +531,8 @@ namespace mpTables
 
                     // Перемещаем с джигой
                     var jig = new TableDrag();
-                    var jigresult = jig.StartJig(tbl, pointAligin);
-                    if (jigresult.Status != PromptStatus.OK)
+                    var jigResult = jig.StartJig(tbl, pointAlign);
+                    if (jigResult.Status != PromptStatus.OK)
                     {
                         tbl.Erase();
                         return;
@@ -587,6 +600,7 @@ namespace mpTables
                 }
             }
         }
+
         private Table GetTableFromSource(Transaction tr, TableDocumentInBase selectedTableDocumentInBase)
         {
             var doc = AcApp.DocumentManager.MdiActiveDocument;
@@ -601,7 +615,7 @@ namespace mpTables
                     if (key != null)
                     {
                         // Имя файла из которого берем таблицу
-                        if (!File.Exists(_tablesBase.DwgFileName))
+                        ////if (!File.Exists(_tablesBase.DwgFileName))
                             ExtractTablesDwg();
 
                         // Read the DWG into a side database
@@ -840,6 +854,7 @@ namespace mpTables
             }
         }
         #endregion
+
         // Очистить путь к файлу
         private void BtClearFileFrom_OnClick(object sender, RoutedEventArgs e)
         {
