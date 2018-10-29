@@ -286,7 +286,6 @@ namespace mpTables
                     bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbTopLeft"));
                 RbTopRight.IsChecked =
                     bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbTopRight"));
-                ExpDetail.IsExpanded = bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ExpDetail"));
             }
             catch
             {
@@ -330,8 +329,6 @@ namespace mpTables
                                     (RbTopLeft.IsChecked != null && RbTopLeft.IsChecked.Value).ToString(), false);
             UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbTopRight",
                                     (RbTopRight.IsChecked != null && RbTopRight.IsChecked.Value).ToString(), false);
-            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ExpDetail",
-                                    ExpDetail.IsExpanded.ToString(), false);
             UserConfigFile.SaveConfigFile();
         }
 
