@@ -161,14 +161,7 @@
     <Resource Include="Resources\Images\RU\img_68.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Flags\russia_thin_rectangular_icon_64.png" />
-    <Resource Include="Resources\Flags\ukraine_thin_rectangular_icon_64.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\TablesBase_RU.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Flags\belarus_thin_rectangular_icon_64.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\TablesBase_UA.xml" />
@@ -215,6 +208,12 @@
     <Resource Include="Resources\mpTables_16x16_dark.png" />
     <Resource Include="Resources\mpTables_32x32.png" />
     <Resource Include="Resources\mpTables_32x32_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Flags\by-icon.png" />
+    <Resource Include="Resources\Flags\ru-icon.png" />
+    <Content Include="Resources\Flags\TextFile1.txt" />
+    <Resource Include="Resources\Flags\ua-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

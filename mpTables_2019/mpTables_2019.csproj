@@ -86,17 +86,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpTables_2013\Resources\Flags\belarus_thin_rectangular_icon_64.png">
-      <Link>Resources\Flags\belarus_thin_rectangular_icon_64.png</Link>
-    </Resource>
-    <Resource Include="..\mpTables_2013\Resources\Flags\russia_thin_rectangular_icon_64.png">
-      <Link>Resources\Flags\russia_thin_rectangular_icon_64.png</Link>
-    </Resource>
-    <Resource Include="..\mpTables_2013\Resources\Flags\ukraine_thin_rectangular_icon_64.png">
-      <Link>Resources\Flags\ukraine_thin_rectangular_icon_64.png</Link>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="..\mpTables_2013\Resources\Images\BY\img_0.png">
       <Link>Resources\Images\BY\img_0.png</Link>
     </Resource>
@@ -400,6 +389,17 @@
     </Resource>
     <Resource Include="..\mpTables_2013\Resources\mpTables_32x32_dark.png">
       <Link>Resources\mpTables_32x32_dark.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mpTables_2013\Resources\Flags\by-icon.png">
+      <Link>Resources\Flags\by-icon.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Flags\ru-icon.png">
+      <Link>Resources\Flags\ru-icon.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Flags\ua-icon.png">
+      <Link>Resources\Flags\ua-icon.png</Link>
     </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

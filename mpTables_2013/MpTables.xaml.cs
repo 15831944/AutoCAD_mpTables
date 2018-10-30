@@ -119,23 +119,6 @@ namespace mpTables
         {
             Autodesk.AutoCAD.Internal.Utils.SetFocusToDwgView();
         }
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape) Close();
-        }
-        private void TbTextHeight_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            // Запрет нажатия пробела
-            if (e.Key == Key.Space)
-                e.Handled = true;
-        }
-        private void _PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            // Ввод только цифр и точки
-            short val;
-            if (!short.TryParse(e.Text, out val) && !e.Text.Equals("."))
-                e.Handled = true;
-        }
         
         #endregion
 
@@ -206,9 +189,9 @@ namespace mpTables
                 var cans = occ.CurrentContext as AnnotationScale;
                 if (cans != null) CbScales.SelectedItem = cans.Name;
                 // Начальное значение высоты текста
-                TbTextHeight.Text = "2.5";
+                TbTextHeight.Value = 2.5;
                 // Начальное значение высоты строк
-                TbRowHeight.Text = "8";
+                TbRowHeight.Value = 8;
 
                 string txtstname;
                 using (var acTrans = doc.TransactionManager.StartTransaction())
@@ -262,13 +245,11 @@ namespace mpTables
                 ChkDynRowsStandard.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRowsStandard"), out var b) || b;
                 ChkDynRows.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "ChkDynRows"), out b) || b;
                 // Высота строк
-                var rowH = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbRowHeight");
-                if (!string.IsNullOrEmpty(rowH))
-                    TbRowHeight.Text = rowH;
+                if (double.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbRowHeight"), out var i))
+                    TbRowHeight.Value = i;
                 // Высота текста
-                var txtH = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbTextHeight");
-                if (!string.IsNullOrEmpty(txtH))
-                    TbTextHeight.Text = txtH;
+                if (double.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbTextHeight"), out i))
+                    TbTextHeight.Value = i;
                 // Привязка
                 RbBottomLeft.IsChecked =
                     bool.Parse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbBottomLeft"));
@@ -309,9 +290,9 @@ namespace mpTables
                                     (ChkDynRows.IsChecked != null && ChkDynRows.IsChecked.Value).ToString(), false);
 
             // Высота строк
-            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbRowHeight", TbRowHeight.Text, false);
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbRowHeight", TbRowHeight.Value.ToString(), false);
             // Высота текста
-            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbTextHeight", TbTextHeight.Text, false);
+            UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "TbTextHeight", TbTextHeight.Value.ToString(), false);
             // Привязка
             UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "RbBottomLeft",
                                     (RbBottomLeft.IsChecked != null && RbBottomLeft.IsChecked.Value).ToString(), false);
@@ -548,7 +529,7 @@ namespace mpTables
                             var addcelljig = new TableAddCellsJig
                             {
                                 FPt = tbl.Position,
-                                RowH = double.Parse(TbRowHeight.Text.Replace(',', '.')) * Scale(CbScales.SelectedItem.ToString()),
+                                RowH = TbRowHeight.Value ?? 8 * Scale(CbScales.SelectedItem.ToString()),
                                 StopRows = selectedTableDocumentInBase.DataRow,
                                 TbH = tbl.GeometricExtents.MaxPoint.Y - tbl.GeometricExtents.MinPoint.Y
                             };
@@ -570,8 +551,8 @@ namespace mpTables
                         for (var i = selectedTableDocumentInBase.DataRow; i < tbl.Rows.Count; i++)
                         {
                             tbl.Rows[i].TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
-                            tbl.Rows[i].Height = double.Parse(TbRowHeight.Text.Replace(',', '.')) * Scale(CbScales.SelectedItem.ToString());
-                            tbl.Rows[i].TextHeight = double.Parse(TbTextHeight.Text.Replace(',', '.')) * Scale(CbScales.SelectedItem.ToString());
+                            tbl.Rows[i].Height = TbRowHeight.Value ?? 8 * Scale(CbScales.SelectedItem.ToString());
+                            tbl.Rows[i].TextHeight = TbTextHeight.Value ?? 2.5 * Scale(CbScales.SelectedItem.ToString());
                             // Копирование свойств с предыдущей ячейки
                             if (i != selectedTableDocumentInBase.DataRow & selectedTableDocumentInBase.DynRow)
                             {
@@ -826,13 +807,9 @@ namespace mpTables
                             var jigaddcell = new TableAddCellsJig
                             {
                                 FPt = tbl.Position,
-                                RowH =
-                                                               double.Parse(TbRowHeight.Text) *
-                                                               Scale(CbScales.SelectedItem.ToString()),
+                                RowH = TbRowHeight.Value ?? 8 * Scale(CbScales.SelectedItem.ToString()),
                                 StopRows = 2,
-                                TbH =
-                                                               tbl.GeometricExtents.MaxPoint.Y -
-                                                               tbl.GeometricExtents.MinPoint.Y
+                                TbH = tbl.GeometricExtents.MaxPoint.Y - tbl.GeometricExtents.MinPoint.Y
                             };
                             jigaddcell.StartJig(tbl);
                             ed.Regen();
