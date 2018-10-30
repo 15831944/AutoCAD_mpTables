@@ -13,7 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ModPlusStyle;component/Styles/Controls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <XmlDataProvider x:Key="Lang" Source="D:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpTables" IsAsynchronous="False"></XmlDataProvider>
+            <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpTables" IsAsynchronous="False"></XmlDataProvider>
         </ResourceDictionary>
     </Window.Resources>
     <TabControl>
@@ -159,13 +159,15 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Source={StaticResource Lang}, XPath=h24}" Margin="{DynamicResource ModPlusDefaultMargin}"></TextBlock>
                         <AdornerDecorator>
-                            <mps:NumericBox Name="TbTextHeight" Value="2.5" Interval=".1" Minimum="0.1" Maximum="10"> </mps:NumericBox>
+                            <mps:NumericBox Name="TbTextHeight" Value="2.5" Interval=".1" Minimum="0.1" Maximum="10"
+                                            HideUpDownButtons="True"> </mps:NumericBox>
                         </AdornerDecorator>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Source={StaticResource Lang}, XPath=h25}" Margin="{DynamicResource ModPlusDefaultMargin}"></TextBlock>
                         <AdornerDecorator>
-                            <mps:NumericBox Name="TbRowHeight" Value="8" Interval="1" Minimum="4" Maximum="100"></mps:NumericBox>
+                            <mps:NumericBox Name="TbRowHeight" Value="8" Interval="1" Minimum="4" Maximum="100"
+                                            HideUpDownButtons="True"></mps:NumericBox>
                         </AdornerDecorator>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
