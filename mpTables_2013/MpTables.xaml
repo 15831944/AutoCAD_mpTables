@@ -109,22 +109,22 @@
                                        Foreground="{DynamicResource ErrorBrush}" FontSize="14" FontWeight="SemiBold" 
                                        HorizontalAlignment="Center" VerticalAlignment="Top" Name="TbInoperative"
                                        Background="White" Padding="5"></TextBlock>
+
                         <Border Background="{DynamicResource WindowBackgroundColorBrush}" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <RadioButton Name="RbTopLeft" ToolTip="{Binding Source={StaticResource Lang}, XPath=h16}"
-                                         Panel.ZIndex="1" GroupName="InsertPosition"></RadioButton>
+                            <CheckBox Name="RbTopLeft" ToolTip="{Binding Source={StaticResource Lang}, XPath=h16}"
+                                      Panel.ZIndex="999" Checked="RbTopLeft_OnChecked"></CheckBox>
                         </Border>
                         <Border Background="{DynamicResource WindowBackgroundColorBrush}" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <RadioButton Name="RbTopRight" ToolTip="{Binding Source={StaticResource Lang}, XPath=h17}"
-                                         Panel.ZIndex="1" GroupName="InsertPosition"></RadioButton>
+                            <CheckBox Name="RbTopRight" ToolTip="{Binding Source={StaticResource Lang}, XPath=h17}"
+                                      Panel.ZIndex="999" Checked="RbTopRight_OnChecked" ></CheckBox>
                         </Border>
                         <Border Background="{DynamicResource WindowBackgroundColorBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-                            <RadioButton Name="RbBottomLeft" ToolTip="{Binding Source={StaticResource Lang}, XPath=h18}"
-                                         Panel.ZIndex="1" GroupName="InsertPosition"></RadioButton>
+                            <CheckBox Name="RbBottomLeft" ToolTip="{Binding Source={StaticResource Lang}, XPath=h18}"
+                                      Panel.ZIndex="999" Checked="RbBottomLeft_OnChecked"></CheckBox>
                         </Border>
-
                         <Border Background="{DynamicResource WindowBackgroundColorBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                            <RadioButton Name="RbBottomRight" ToolTip="{Binding Source={StaticResource Lang}, XPath=h19}"
-                                         Panel.ZIndex="1" GroupName="InsertPosition"></RadioButton>
+                            <CheckBox Name="RbBottomRight" ToolTip="{Binding Source={StaticResource Lang}, XPath=h19}"
+                                      Panel.ZIndex="999" Checked="RbBottomRight_OnChecked"></CheckBox>
                         </Border>
 
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="5">

@@ -449,7 +449,7 @@ namespace mpTables
             TbDocumentName.Text = string.Empty;
         }
 
-        private static double Scale(string scaleName)
+        private static double GetScale(string scaleName)
         {
             var doc = AcApp.DocumentManager.MdiActiveDocument;
             var db = doc.Database;
@@ -489,6 +489,7 @@ namespace mpTables
         {
             var doc = AcApp.DocumentManager.MdiActiveDocument;
             var db = doc.Database;
+            var scale = GetScale(CbScales.SelectedItem.ToString());
 
             // Блокируем документ
             using (doc.LockDocument())
@@ -503,7 +504,8 @@ namespace mpTables
                         return;
                     }
                     // Масштабируем до перемещения для правильного отображения
-                    var mat = Matrix3d.Scaling(Scale(CbScales.SelectedItem.ToString()), tbl.Position);
+                    
+                    var mat = Matrix3d.Scaling(scale, tbl.Position);
                     tbl.TransformBy(mat);
                     tbl.SuppressRegenerateTable(true);
 
@@ -529,7 +531,7 @@ namespace mpTables
                             var addcelljig = new TableAddCellsJig
                             {
                                 FPt = tbl.Position,
-                                RowH = TbRowHeight.Value ?? 8 * Scale(CbScales.SelectedItem.ToString()),
+                                RowH = TbRowHeight.Value * scale ?? 8 * scale,
                                 StopRows = selectedTableDocumentInBase.DataRow,
                                 TbH = tbl.GeometricExtents.MaxPoint.Y - tbl.GeometricExtents.MinPoint.Y
                             };
@@ -551,8 +553,8 @@ namespace mpTables
                         for (var i = selectedTableDocumentInBase.DataRow; i < tbl.Rows.Count; i++)
                         {
                             tbl.Rows[i].TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
-                            tbl.Rows[i].Height = TbRowHeight.Value ?? 8 * Scale(CbScales.SelectedItem.ToString());
-                            tbl.Rows[i].TextHeight = TbTextHeight.Value ?? 2.5 * Scale(CbScales.SelectedItem.ToString());
+                            tbl.Rows[i].Height = TbRowHeight.Value * scale ?? 8 * scale;
+                            tbl.Rows[i].TextHeight = TbTextHeight.Value * scale ?? 2.5 * scale;
                             // Копирование свойств с предыдущей ячейки
                             if (i != selectedTableDocumentInBase.DataRow & selectedTableDocumentInBase.DynRow)
                             {
@@ -788,7 +790,7 @@ namespace mpTables
                             myT.Commit();
                         }
 
-                        var mat = Matrix3d.Scaling(Scale(CbScales.SelectedItem.ToString()), tbl.Position);
+                        var mat = Matrix3d.Scaling(GetScale(CbScales.SelectedItem.ToString()), tbl.Position);
                         tbl.TransformBy(mat);
 
                         // Перемещаем с джигой
@@ -807,7 +809,7 @@ namespace mpTables
                             var jigaddcell = new TableAddCellsJig
                             {
                                 FPt = tbl.Position,
-                                RowH = TbRowHeight.Value ?? 8 * Scale(CbScales.SelectedItem.ToString()),
+                                RowH = TbRowHeight.Value ?? 8 * GetScale(CbScales.SelectedItem.ToString()),
                                 StopRows = 2,
                                 TbH = tbl.GeometricExtents.MaxPoint.Y - tbl.GeometricExtents.MinPoint.Y
                             };
@@ -837,5 +839,32 @@ namespace mpTables
             UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, "mpTables", "file", string.Empty, true);
         }
 
+        private void RbTopLeft_OnChecked(object sender, RoutedEventArgs e)
+        {
+            RbBottomLeft.IsChecked = false;
+            RbBottomRight.IsChecked = false;
+            RbTopRight.IsChecked = false;
+        }
+
+        private void RbTopRight_OnChecked(object sender, RoutedEventArgs e)
+        {
+            RbTopLeft.IsChecked = false;
+            RbBottomLeft.IsChecked = false;
+            RbBottomRight.IsChecked = false;
+        }
+
+        private void RbBottomLeft_OnChecked(object sender, RoutedEventArgs e)
+        {
+            RbTopRight.IsChecked = false;
+            RbTopLeft.IsChecked = false;
+            RbBottomRight.IsChecked = false;
+        }
+
+        private void RbBottomRight_OnChecked(object sender, RoutedEventArgs e)
+        {
+            RbTopRight.IsChecked = false;
+            RbTopLeft.IsChecked = false;
+            RbBottomLeft.IsChecked = false;
+        }
     }
 }
