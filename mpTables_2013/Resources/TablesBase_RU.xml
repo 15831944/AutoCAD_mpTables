@@ -12,13 +12,14 @@
 		<Document document="ГОСТ 21.602-2003" name="СПДС. Правила выполнения рабочей документации отопления, вентиляции и кондиционирования"></Document>
 		<Document document="ГОСТ 21.701-2013" name="СПДС. Правила выполнения рабочей документации автомобильных дорог"></Document>
 		<Document document="ГОСТ 21.111-84" name="СПДС. Ведомость объемов строительных и монтажных работ"></Document>
+    <Document document="ГОСТ 21.613-2014" name="СПДС. Правила выполнения рабочей документации силового электрооборудования"></Document>
 	</Documents>
 	<!--name		- название (если это таблица, то пишется в шапке)-->
 	<!--tablestylename	- имя табличного стиля-->
 	<!--document		- название нормативного документа. Имя файла документа должно быть таим же + .pdf-->
 	<!--description		- краткое описание. Включает номер приложения в ГОСТ и номер формы-->
 	<!--img			- номер изображения. Файл такой-же + .jpg-->
-	<!--DataRow			- номер строки с которой начинаются данные. (первая строка имеет индекс 0)-->
+	<!--DataRow			- номер строки с которой начинаются данные. (первая строка имеет индекс 0). Если строк не имеется (например, боковик), то писать 0-->
 	<Table
 	name="Ведомость рабочих чертежей основного комплекта"
 	tablestylename="Mp_GOST_P_21.1101_F1"
@@ -344,8 +345,8 @@
 	tablestylename="Mp_GOST_21.608_F4"
 	document="ГОСТ 21.608-2014"
 	description="Форма 4"
-	img=""
-	DataRow="-1"
+	img="img_70"
+	DataRow="0"
 	DynRow="False"
 	NameToHeader="False"
 	></Table>
@@ -354,8 +355,8 @@
 	tablestylename="Mp_GOST_21.608_F5"
 	document="ГОСТ 21.608-2014"
 	description="Форма 5"
-	img=""
-	DataRow="-1"
+	img="img_71"
+	DataRow="0"
 	DynRow="False"
 	NameToHeader="False"
 	></Table>
@@ -739,4 +740,105 @@
 	DynRow="True"
 	NameToHeader="False"
 	></Table>
+  <!-- ГОСТ 21.613-2014 -->
+  <Table
+    name="Боковик принципиальной схемы КТП"
+    tablestylename="Mp_GOST_21.613_F1"
+    document="ГОСТ 21.613-2014"
+    description="Форма 1"
+    img="img_72"
+    DataRow="0"
+    DynRow="False"
+    NameToHeader="False"
+    ></Table>
+  <Table
+    name="Принципиальная схема питающей сети"
+    tablestylename="Mp_GOST_21.613_F2"
+    document="ГОСТ 21.613-2014"
+    description="Форма 2"
+    img="img_73"
+    DataRow="3"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Принципиальная схема распределительной сети"
+    tablestylename="Mp_GOST_21.613_F3"
+    document="ГОСТ 21.613-2014"
+    description="Форма 3"
+    img="img_74"
+    DataRow="3"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Потребность кабелей и проводов"
+    tablestylename="Mp_GOST_21.613_F4"
+    document="ГОСТ 21.613-2014"
+    description="Форма 4"
+    img="img_75"
+    DataRow="3"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Потребность труб"
+    tablestylename="Mp_GOST_21.613_F5"
+    document="ГОСТ 21.613-2014"
+    description="Форма 5"
+    img="img_76"
+    DataRow="2"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Кабельнотрубный журнал"
+    tablestylename="Mp_GOST_21.613_F6"
+    document="ГОСТ 21.613-2014"
+    description="Форма 6"
+    img="img_77"
+    DataRow="4"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Кабельный журнал для прокладки методом трасс"
+    tablestylename="Mp_GOST_21.613_F7"
+    document="ГОСТ 21.613-2014"
+    description="Форма 7"
+    img="img_78"
+    DataRow="4"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Трубозаготовительная ведомость"
+    tablestylename="Mp_GOST_21.613_F8"
+    document="ГОСТ 21.613-2014"
+    description="Форма 8"
+    img="img_79"
+    DataRow="3"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Ведомость заполнения труб кабелями и проводами"
+    tablestylename="Mp_GOST_21.613_F9"
+    document="ГОСТ 21.613-2014"
+    description="Форма 9"
+    img="img_80"
+    DataRow="3"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
+  <Table
+    name="Ведомость электромонтажных конструкций"
+    tablestylename="Mp_GOST_21.613_F10"
+    document="ГОСТ 21.613-2014"
+    description="Форма 10"
+    img="img_81"
+    DataRow="2"
+    DynRow="True"
+    NameToHeader="True"
+  ></Table>
 </Tables>

@@ -210,6 +210,18 @@
     <Resource Include="Resources\mpTables_32x32_dark.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\RU\img_72.png" />
+    <Resource Include="Resources\Images\RU\img_73.png" />
+    <Resource Include="Resources\Images\RU\img_74.png" />
+    <Resource Include="Resources\Images\RU\img_75.png" />
+    <Resource Include="Resources\Images\RU\img_76.png" />
+    <Resource Include="Resources\Images\RU\img_77.png" />
+    <Resource Include="Resources\Images\RU\img_78.png" />
+    <Resource Include="Resources\Images\RU\img_79.png" />
+    <Resource Include="Resources\Images\RU\img_80.png" />
+    <Resource Include="Resources\Images\RU\img_81.png" />
+    <Resource Include="Resources\Images\RU\img_70.png" />
+    <Resource Include="Resources\Images\RU\img_71.png" />
     <Resource Include="Resources\Flags\by-icon.png" />
     <Resource Include="Resources\Flags\ru-icon.png" />
     <Content Include="Resources\Flags\TextFile1.txt" />

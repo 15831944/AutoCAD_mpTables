@@ -103,7 +103,9 @@
                     <Grid Width="700">
                         <Border ClipToBounds="True"  Name="imageBorder" Margin="0" Background="White"
                                     ToolTip="{Binding Source={StaticResource Lang}, XPath=h14}">
-                            <Image Name="img" Stretch="Uniform"></Image>
+                            <Image Name="img" Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   RenderOptions.EdgeMode="Aliased"></Image>
                         </Border>
                         <TextBlock Text="{Binding Source={StaticResource Lang}, XPath=h15}"
                                        Foreground="{DynamicResource ErrorBrush}" FontSize="14" FontWeight="SemiBold" 

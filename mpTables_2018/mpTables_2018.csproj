@@ -399,6 +399,46 @@
       <Link>Resources\Flags\ua-icon.png</Link>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_70.png">
+      <Link>Resources\Images\RU\img_70.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_71.png">
+      <Link>Resources\Images\RU\img_71.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_72.png">
+      <Link>Resources\Images\RU\img_72.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_73.png">
+      <Link>Resources\Images\RU\img_73.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_74.png">
+      <Link>Resources\Images\RU\img_74.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_75.png">
+      <Link>Resources\Images\RU\img_75.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_76.png">
+      <Link>Resources\Images\RU\img_76.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_77.png">
+      <Link>Resources\Images\RU\img_77.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_78.png">
+      <Link>Resources\Images\RU\img_78.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_79.png">
+      <Link>Resources\Images\RU\img_79.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_80.png">
+      <Link>Resources\Images\RU\img_80.png</Link>
+    </Resource>
+    <Resource Include="..\mpTables_2013\Resources\Images\RU\img_81.png">
+      <Link>Resources\Images\RU\img_81.png</Link>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

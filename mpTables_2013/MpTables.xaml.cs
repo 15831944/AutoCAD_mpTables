@@ -1,24 +1,25 @@
-﻿using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Autodesk.AutoCAD.EditorInput;
-using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.DatabaseServices;
-using ModPlusAPI;
-using ModPlusAPI.Windows;
-using Visibility = System.Windows.Visibility;
-
-namespace mpTables
+﻿namespace mpTables
 {
+    using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Linq;
+    using System.IO;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using Autodesk.AutoCAD.ApplicationServices;
+    using Autodesk.AutoCAD.EditorInput;
+    using Autodesk.AutoCAD.Geometry;
+    using Autodesk.AutoCAD.DatabaseServices;
+    using ModPlusAPI;
+    using ModPlusAPI.Windows;
+    using Visibility = System.Windows.Visibility;
+
     public partial class MpTables
     {
         private const string LangItem = "mpTables";
@@ -51,7 +52,7 @@ namespace mpTables
 
         private void img_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
+            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
             {
                 if (img.IsMouseCaptured) return;
                 Cursor = Cursors.Hand;
@@ -65,7 +66,7 @@ namespace mpTables
         }
         private void img_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Released)
+            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Released)
             {
                 img.ReleaseMouseCapture();
                 Cursor = Cursors.Arrow;
@@ -119,7 +120,7 @@ namespace mpTables
         {
             Autodesk.AutoCAD.Internal.Utils.SetFocusToDwgView();
         }
-        
+
         #endregion
 
         // Распаковка файла с таблицами
@@ -145,7 +146,7 @@ namespace mpTables
                         {
                             var oldFile = Path.Combine(dir, file);
                             if (File.Exists(oldFile))
-                                File.Delete(oldFile);    
+                                File.Delete(oldFile);
                         }
                     }
                     catch
@@ -414,6 +415,11 @@ namespace mpTables
                                         ";component/Resources/Images/NoImage.png",
                                     UriKind.Absolute));
                         }
+                        // Вписываю изображение
+                        var m = img.RenderTransform.Value;
+                        m.SetIdentity();
+                        img.RenderTransform = new MatrixTransform(m);
+
                         // Если есть атрибут, запрещающий динамическую вставку строк
                         ChkDynRowsStandard.IsEnabled = selectedTable.DynRow;
                         // Полное название документа
@@ -465,15 +471,15 @@ namespace mpTables
         {
             if (!(CbTables.SelectedItem is TableDocumentInBase selectedTable)) return;
             // привязка точки вставки
-            var pointAligin = "TopLeft";
-            if (RbBottomLeft.IsChecked != null && RbBottomLeft.IsChecked.Value) pointAligin = "BottomLeft";
-            if (RbBottomRight.IsChecked != null && RbBottomRight.IsChecked.Value) pointAligin = "BottomRight";
-            if (RbTopLeft.IsChecked != null && RbTopLeft.IsChecked.Value) pointAligin = "TopLeft";
-            if (RbTopRight.IsChecked != null && RbTopRight.IsChecked.Value) pointAligin = "TopRight";
+            var pointAlign = "TopLeft";
+            if (RbBottomLeft.IsChecked != null && RbBottomLeft.IsChecked.Value) pointAlign = "BottomLeft";
+            if (RbBottomRight.IsChecked != null && RbBottomRight.IsChecked.Value) pointAlign = "BottomRight";
+            if (RbTopLeft.IsChecked != null && RbTopLeft.IsChecked.Value) pointAlign = "TopLeft";
+            if (RbTopRight.IsChecked != null && RbTopRight.IsChecked.Value) pointAlign = "TopRight";
             Hide();
             try
             {
-                InsertTable(pointAligin, selectedTable);
+                InsertTable(pointAlign, selectedTable);
             }
             catch (Exception exception)
             {
@@ -488,93 +494,129 @@ namespace mpTables
         private void InsertTable(string pointAlign, TableDocumentInBase selectedTableDocumentInBase)
         {
             var doc = AcApp.DocumentManager.MdiActiveDocument;
-            var db = doc.Database;
             var scale = GetScale(CbScales.SelectedItem.ToString());
-
+            Table table;
             // Блокируем документ
             using (doc.LockDocument())
             {
                 using (var tr = doc.TransactionManager.StartTransaction())
                 {
                     // Копируем таблицу из файла ресурсов
-                    var tbl = GetTableFromSource(tr, selectedTableDocumentInBase);
-                    if (tbl == null)
+                    table = GetTableFromSource(tr, selectedTableDocumentInBase);
+                    if (table == null)
                     {
                         ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "msg2"), MessageBoxIcon.Close);
                         return;
                     }
                     // Масштабируем до перемещения для правильного отображения
-                    
-                    var mat = Matrix3d.Scaling(scale, tbl.Position);
-                    tbl.TransformBy(mat);
-                    tbl.SuppressRegenerateTable(true);
+
+                    var mat = Matrix3d.Scaling(scale, table.Position);
+                    table.TransformBy(mat);
+                    table.SuppressRegenerateTable(true);
 
                     // Перемещаем с джигой
                     var jig = new TableDrag();
-                    var jigResult = jig.StartJig(tbl, pointAlign);
+                    var jigResult = jig.StartJig(table, pointAlign);
                     if (jigResult.Status != PromptStatus.OK)
                     {
-                        tbl.Erase();
+                        table.Erase();
                         return;
                     }
-                    tbl.Position = jig.TablePositionPoint();
+                    table.Position = jig.TablePositionPoint();
                     doc.TransactionManager.QueueForGraphicsFlush();
 
+                    table.SuppressRegenerateTable(false);
 
-                    tbl.SuppressRegenerateTable(false);
                     // Динамическая вставка строк
                     if (selectedTableDocumentInBase.DynRow)
+                    {
                         if (ChkDynRowsStandard.IsChecked != null && ChkDynRowsStandard.IsChecked.Value)
                         {
-                            tbl.SuppressRegenerateTable(true);
-                            tbl.DowngradeOpen();
-                            var addcelljig = new TableAddCellsJig
+                            table.SuppressRegenerateTable(true);
+                            table.DowngradeOpen();
+                            var tableAddCellsJig = new TableAddCellsJig
                             {
-                                FPt = tbl.Position,
+                                FPt = table.Position,
                                 RowH = TbRowHeight.Value * scale ?? 8 * scale,
                                 StopRows = selectedTableDocumentInBase.DataRow,
-                                TbH = tbl.GeometricExtents.MaxPoint.Y - tbl.GeometricExtents.MinPoint.Y
+                                TbH = table.GeometricExtents.MaxPoint.Y - table.GeometricExtents.MinPoint.Y
                             };
-                            addcelljig.StartJig(tbl);
-                            tbl.SuppressRegenerateTable(false);
+                            tableAddCellsJig.StartJig(table);
+                            table.SuppressRegenerateTable(false);
                         }
+                    }
 
-                    ////////////////////////////////////////////////
-                    // Присваиваем свойства//
-                    /////////////////////////
+                    tr.Commit();
+                }
+            }
+
+            SetProperties(table.Id, selectedTableDocumentInBase, doc, scale);
+        }
+
+        private void SetProperties(ObjectId tableId, TableDocumentInBase selectedTableDocumentInBase, Document doc, double scale)
+        {
+            var db = doc.Database;
+            using (doc.LockDocument())
+            {
+                using (var tr = doc.TransactionManager.StartTransaction())
+                {
+                    var table = (Table)tr.GetObject(tableId, OpenMode.ForWrite);
                     var tst = (TextStyleTable)tr.GetObject(db.TextStyleTableId, OpenMode.ForRead);
-                    tbl.Cells.TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
+                    table.Cells.TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
 
                     if (selectedTableDocumentInBase.NameToHeader)
-                        tbl.Cells[0, 0].TextString = selectedTableDocumentInBase.Name;
-                    tbl.Cells.TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
+                        table.Cells[0, 0].TextString = selectedTableDocumentInBase.Name;
+                    table.Cells.TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
+
+                    // Установка высоты текста для ячеек типа "Заголовок" и "Название"
+                    if (selectedTableDocumentInBase.DataRow == 0)
+                    {
+                        for (int i = 0; i < table.Rows.Count; i++)
+                        {
+                            RowType rowType = table.RowType(i);
+                            if (rowType == RowType.DataRow)
+                                continue;
+                            if (rowType == RowType.TitleRow)
+                                table.Rows[i].TextHeight = 5 * scale;
+                            if (rowType == RowType.HeaderRow)
+                                table.Rows[i].TextHeight = 3 * scale;
+                        }
+                    }
 
                     if (selectedTableDocumentInBase.DataRow > 0)
-                        for (var i = selectedTableDocumentInBase.DataRow; i < tbl.Rows.Count; i++)
+                    {
+                        for (int i = 0; i < selectedTableDocumentInBase.DataRow; i++)
                         {
-                            tbl.Rows[i].TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
-                            tbl.Rows[i].Height = TbRowHeight.Value * scale ?? 8 * scale;
-                            tbl.Rows[i].TextHeight = TbTextHeight.Value * scale ?? 2.5 * scale;
+                            if (i == 0)
+                                table.Rows[i].TextHeight = 5 * scale;
+                            else table.Rows[i].TextHeight = 3 * scale;
+                        }
+                        for (var i = selectedTableDocumentInBase.DataRow; i < table.Rows.Count; i++)
+                        {
+                            table.Rows[i].TextStyleId = tst[CbTextStyle.SelectedItem.ToString()];
+                            table.Rows[i].Height = TbRowHeight.Value * scale ?? 8 * scale;
+                            table.Rows[i].TextHeight = TbTextHeight.Value * scale ?? 2.5 * scale;
                             // Копирование свойств с предыдущей ячейки
                             if (i != selectedTableDocumentInBase.DataRow & selectedTableDocumentInBase.DynRow)
                             {
-                                for (var j = 0; j < tbl.Columns.Count; j++)
+                                for (var j = 0; j < table.Columns.Count; j++)
                                 {
-                                    var isMerged = tbl.Cells[i, j].IsMerged;
+                                    var isMerged = table.Cells[i, j].IsMerged;
                                     if (isMerged != null && !isMerged.Value)
                                     {
-                                        tbl.Cells[i, j].Style = tbl.Cells[i - 1, j].Style;
-                                        tbl.Cells[i, j].DataFormat = tbl.Cells[i - 1, j].DataFormat;
-                                        if (tbl.Cells[i - 1, j].Alignment != null)
-                                            tbl.Cells[i, j].Alignment = tbl.Cells[i - 1, j].Alignment;
-                                        if (tbl.Cells[i - 1, j].TextStyleId != null)
-                                            tbl.Cells[i, j].TextStyleId = tbl.Cells[i - 1, j].TextStyleId;
-                                        if (tbl.Cells[i - 1, j].TextHeight != null)
-                                            tbl.Cells[i, j].TextHeight = tbl.Cells[i - 1, j].TextHeight;
+                                        table.Cells[i, j].Style = table.Cells[i - 1, j].Style;
+                                        table.Cells[i, j].DataFormat = table.Cells[i - 1, j].DataFormat;
+                                        if (table.Cells[i - 1, j].Alignment != null)
+                                            table.Cells[i, j].Alignment = table.Cells[i - 1, j].Alignment;
+                                        if (table.Cells[i - 1, j].TextStyleId != null)
+                                            table.Cells[i, j].TextStyleId = table.Cells[i - 1, j].TextStyleId;
+                                        if (table.Cells[i - 1, j].TextHeight != null)
+                                            table.Cells[i, j].TextHeight = table.Cells[i - 1, j].TextHeight;
                                     }
                                 }
                             }
                         }
+                    }
 
                     tr.Commit();
                 }
@@ -595,8 +637,7 @@ namespace mpTables
                     if (key != null)
                     {
                         // Имя файла из которого берем таблицу
-                        ////if (!File.Exists(_tablesBase.DwgFileName))
-                            ExtractTablesDwg();
+                        ExtractTablesDwg();
 
                         // Read the DWG into a side database
                         sourceDb.ReadDwgFile(_tablesBase.DwgFileName, FileShare.Read, true, "");
@@ -610,16 +651,14 @@ namespace mpTables
                             foreach (var obj in sourceBtr)
                             {
                                 var ent = (Entity)myT.GetObject(obj, OpenMode.ForRead);
-                                if (ent is Table)
+                                if (ent is Table table)
                                 {
-                                    var tblsty = (Table)myT.GetObject(obj, OpenMode.ForRead);
-
-                                    if (tblsty.TableStyleName.Equals(selectedTableDocumentInBase.TableStyleName))
+                                    if (table.TableStyleName.Equals(selectedTableDocumentInBase.TableStyleName))
                                     {
-                                        tblIds.Add(tblsty.ObjectId);
+                                        tblIds.Add(table.ObjectId);
                                         var im = new IdMapping();
                                         sourceDb.WblockCloneObjects(tblIds, db.CurrentSpaceId, im, DuplicateRecordCloning.Ignore, false);
-                                        tbl = (Table)tr.GetObject(im.Lookup(tblsty.ObjectId).Value, OpenMode.ForWrite);
+                                        tbl = (Table)tr.GetObject(im.Lookup(table.ObjectId).Value, OpenMode.ForWrite);
                                         break;
                                     }
                                 }
@@ -639,6 +678,7 @@ namespace mpTables
 
 
         #region From File
+
         private void BtDwgFile_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -664,6 +704,7 @@ namespace mpTables
                 ExceptionBox.Show(ex);
             }
         }
+
         private void BtMnlAddTable_Click(object sender, RoutedEventArgs e)
         {
             if (LvTablesFromDwg.SelectedIndex == -1) return;
@@ -694,6 +735,7 @@ namespace mpTables
                 TbFileFrom.Text = string.Empty;
             }
         }
+
         /// <summary>
         /// Загрузить имена таблиц из файла в ListView
         /// </summary>
@@ -733,7 +775,7 @@ namespace mpTables
             catch (Exception ex)
             {
                 if (ex.Message.Equals("eNotImplementedYet"))
-                    ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "msg3"), 
+                    ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "msg3"),
                         MessageBoxIcon.Alert);
                 else ExceptionBox.Show(ex);
             }
@@ -829,6 +871,7 @@ namespace mpTables
                 Show();
             }
         }
+
         #endregion
 
         // Очистить путь к файлу
