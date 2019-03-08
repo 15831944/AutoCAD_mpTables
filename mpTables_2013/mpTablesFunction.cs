@@ -16,7 +16,7 @@ namespace mpTables
         [CommandMethod("ModPlus", "mpTables", CommandFlags.Modal)]
         public void Main()
         {
-            Statistic.SendCommandStarting(new Interface());
+            Statistic.SendCommandStarting(new ModPlusConnector());
             
             if (_mpTables == null)
             {

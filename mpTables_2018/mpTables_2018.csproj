@@ -16,16 +16,16 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\AutoCAD\mpTables\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;A2018</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\AutoCAD\mpTables\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;A2018</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -69,6 +69,9 @@
     <Compile Include="..\mpTables_2013\Jigs.cs">
       <Link>Jigs.cs</Link>
     </Compile>
+    <Compile Include="..\mpTables_2013\ModPlusConnector.cs">
+      <Link>ModPlusConnector.cs</Link>
+    </Compile>
     <Compile Include="..\mpTables_2013\MpTables.xaml.cs">
       <Link>MpTables.xaml.cs</Link>
       <DependentUpon>MpTables.xaml</DependentUpon>
@@ -76,11 +79,9 @@
     <Compile Include="..\mpTables_2013\mpTablesFunction.cs">
       <Link>mpTablesFunction.cs</Link>
     </Compile>
-    <Compile Include="..\mpTables_2013\Properties\AssemblyInfoCommon.cs">
-      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    <Compile Include="..\mpTables_2013\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Interface.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="..\mpTables_2013\MpTables.xaml">
@@ -440,6 +441,14 @@
     </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Debug (
+"$(ModPlusPostBuild)" "AutoCAD" "$(TargetPath)"
+)
+if $(ConfigurationName) == Release (
+"$(ModPlusPostBuild)" "AutoCAD" "$(TargetPath)" "s"
+)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
