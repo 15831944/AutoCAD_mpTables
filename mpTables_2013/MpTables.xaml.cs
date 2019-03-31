@@ -402,7 +402,7 @@
                         {
                             img.Source = new BitmapImage(
                                 new Uri(@"pack://application:,,,/mpTables_" +
-                                VersionData.FuncVersion +
+                                new ModPlusConnector().AvailProductExternalVersion +
                                 ";component/Resources/Images/" +
                                 (CbDocumentsFor.SelectedItem as ComboBoxItem)?.Tag +
                                 "/" + selectedTable.Img + ".png",
@@ -411,7 +411,7 @@
                         catch
                         {
                             img.Source = new BitmapImage(
-                                new Uri(@"pack://application:,,,/mpTables_" + VersionData.FuncVersion +
+                                new Uri(@"pack://application:,,,/mpTables_" + new ModPlusConnector().AvailProductExternalVersion +
                                         ";component/Resources/Images/NoImage.png",
                                     UriKind.Absolute));
                         }
