@@ -1,18 +1,27 @@
-﻿using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Xml.Linq;
-using Autodesk.AutoCAD.Runtime;
-using ModPlusAPI;
-
-namespace mpTables
+﻿namespace mpTables
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
+    using System.Xml.Linq;
+    using Autodesk.AutoCAD.Runtime;
+    using ModPlusAPI;
+    using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+
+    /// <summary>
+    /// Main command class
+    /// </summary>
+    // ReSharper disable once UnusedMember.Global
+    // ReSharper disable once InconsistentNaming
     public class mpTablesFunction
     {
         // Вызов функции
         private MpTables _mpTables;
+
+        /// <summary>
+        /// Start command
+        /// </summary>
         [CommandMethod("ModPlus", "mpTables", CommandFlags.Modal)]
         public void Main()
         {
@@ -25,9 +34,13 @@ namespace mpTables
             }
 
             if (_mpTables.IsLoaded)
+            {
                 _mpTables.Activate();
+            }
             else
+            {
                 AcApp.ShowModelessWindow(AcApp.MainWindow.Handle, _mpTables);
+            }
         }
 
         private void win_Closed(object sender, EventArgs e)
@@ -35,6 +48,7 @@ namespace mpTables
             _mpTables = null;
         }
     }
+
     /// <summary>
     /// Класс описывает текущую базу таблиц (зависит от страны: Россия, Украина и т.п.)
     /// </summary>
@@ -59,9 +73,11 @@ namespace mpTables
                     Tables = LoadTables(XElement.Parse(GetResourceTextFile("TablesBase_BY.xml")));
                     break;
             }
+
             // Получаем путь к файлу чертежа с таблицами (без проверки его существования)
             DwgFileName = GetDwgFileName();
         }
+
         /// <summary>Чтение текстового внедренного ресурса</summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -72,17 +88,22 @@ namespace mpTables
             using (var stream = assembly.GetManifestResourceStream("mpTables.Resources." + filename))
             {
                 if (stream != null)
+                {
                     using (var sr = new StreamReader(stream))
                     {
                         result = sr.ReadToEnd();
                     }
+                }
             }
+
             return result;
         }
+
         /// <summary>
         /// Имя файла из которого брать таблицы
         /// </summary>
         public string DwgFileName;
+
         /// <summary>
         /// Получение пути к файлу с таблицами
         /// </summary>
@@ -92,20 +113,28 @@ namespace mpTables
             var fileName = string.Empty;
             using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("ModPlus"))
             {
-                if (key == null) return fileName;
+                if (key == null)
+                {
+                    return fileName;
+                }
+
                 // Директория расположения файла
                 var dir = Path.Combine(key.GetValue("TopDir").ToString(), "Data", "Dwg");
+
                 // Имя файла из которого берем таблицу
-                //fileName = Path.Combine(dir, "Tables_" + documentFor + ".dwg");
                 fileName = Path.Combine(dir, "Tables.dwg");
+
                 // Проверка наличия файла и его распаковка происходят при работе функции (при попытке вставки таблицы)
             }
+
             return fileName;
         }
+
         /// <summary>
         /// Таблицы в базе
         /// </summary>
         public List<TableDocumentInBase> Tables;
+
         /// <summary>
         /// Получение списка таблиц из базы
         /// </summary>
@@ -116,8 +145,6 @@ namespace mpTables
             var tables = new List<TableDocumentInBase>();
             foreach (var xElement in xmlFile.Elements("Table"))
             {
-                int i;
-                bool b;
                 var newDocumentInBase = new TableDocumentInBase
                 {
                     Name = xElement.Attribute("name")?.Value,
@@ -125,23 +152,30 @@ namespace mpTables
                     Document = xElement.Attribute("document")?.Value,
                     Description = xElement.Attribute("description")?.Value,
                     Img = xElement.Attribute("img")?.Value,
-                    DataRow = int.TryParse(xElement.Attribute("DataRow")?.Value, out i) ? i : 2,
-                    DynRow = !bool.TryParse(xElement.Attribute("DynRow")?.Value, out b) || b, // true
+                    DataRow = int.TryParse(xElement.Attribute("DataRow")?.Value, out var i) ? i : 2,
+                    DynRow = !bool.TryParse(xElement.Attribute("DynRow")?.Value, out var b) || b, // true
                     NameToHeader = bool.TryParse(xElement.Attribute("NameToHeader")?.Value, out b) && b // false
                 };
                 var o = xmlFile.Element("Documents");
                 if (o != null)
+                {
                     foreach (var element in o.Elements("Document"))
                     {
                         var xAttribute = element.Attribute("document");
-                        if ((xAttribute != null && xAttribute.Value.Equals(newDocumentInBase.Document)))
+                        if (xAttribute != null && xAttribute.Value.Equals(newDocumentInBase.Document))
+                        {
                             newDocumentInBase.DocumentName = element.Attribute("name")?.Value;
+                        }
                     }
+                }
+
                 tables.Add(newDocumentInBase);
             }
+
             return tables;
         }
     }
+
     /// <summary>
     /// Класс описывает документ в базе (то, что в xml-файле)
     /// </summary>
@@ -151,34 +185,42 @@ namespace mpTables
         /// Название таблицы
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Название табличного стиля
         /// </summary>
         public string TableStyleName { get; set; }
+
         /// <summary>
         /// Номер нормативного документа
         /// </summary>
         public string Document { get; set; }
+
         /// <summary>
         /// Название нормативного документа
         /// </summary>
         public string DocumentName { get; set; }
+
         /// <summary>
         /// Описание таблицы (ссылка на таблицу в нормативном документе)
         /// </summary>
         public string Description { get; set; }
+
         /// <summary>
         /// Имя файла изображения
         /// </summary>
         public string Img { get; set; }
+
         /// <summary>
         /// Номер строки с которой начинаются строчки данных
         /// </summary>
         public int DataRow { get; set; }
+
         /// <summary>
         /// Возможность динамической вставки строк
         /// </summary>
         public bool DynRow { get; set; }
+
         /// <summary>
         /// Добавление имени таблицы в шапку
         /// </summary>

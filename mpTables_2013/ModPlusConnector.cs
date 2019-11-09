@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using ModPlusAPI.Interfaces;
-
+﻿#pragma warning disable SA1600 // Elements should be documented
 namespace mpTables
 {
+    using System;
+    using System.Collections.Generic;
+    using ModPlusAPI.Interfaces;
+
     public class ModPlusConnector : IModPlusFunctionInterface
     {
         public SupportedProduct SupportedProduct => SupportedProduct.AutoCAD;
@@ -36,7 +37,7 @@ namespace mpTables
         
         public string LName => "Таблицы";
         
-        public string Description => "Функция вставки в чертеж таблиц AutoCad согласно ГОСТам или из указанного файла";
+        public string Description => "Плагин вставки в чертеж таблиц AutoCad согласно ГОСТам или из указанного файла";
         
         public string Author => "Пекшев Александр aka Modis";
         
@@ -61,3 +62,4 @@ namespace mpTables
         public List<string> SubClassNames => new List<string>();
     }
 }
+#pragma warning restore SA1600 // Elements should be documented
