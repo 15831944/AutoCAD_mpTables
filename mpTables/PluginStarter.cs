@@ -10,7 +10,7 @@
     public class PluginStarter
     {
         // Вызов функции
-        private MpTables _mpTables;
+        private MainWindow _mainWindow;
 
         /// <summary>
         /// Start command
@@ -20,19 +20,22 @@
         {
             Statistic.SendCommandStarting(new ModPlusConnector());
             
-            if (_mpTables == null)
+            if (_mainWindow == null)
             {
-                _mpTables = new MpTables();
-                _mpTables.Closed += (sender, args) => _mpTables = null;
+                _mainWindow = new MainWindow();
+                var context = new MainViewModel(_mainWindow);
+                context.FillData();
+                _mainWindow.DataContext = context;
+                _mainWindow.Closed += (sender, args) => _mainWindow = null;
             }
 
-            if (_mpTables.IsLoaded)
+            if (_mainWindow.IsLoaded)
             {
-                _mpTables.Activate();
+                _mainWindow.Activate();
             }
             else
             {
-                AcApp.ShowModelessWindow(AcApp.MainWindow.Handle, _mpTables);
+                AcApp.ShowModelessWindow(AcApp.MainWindow.Handle, _mainWindow);
             }
         }
     }

@@ -1,5 +1,8 @@
-﻿namespace mpTables
+﻿namespace mpTables.Models
 {
+    using System;
+    using System.Windows.Media.Imaging;
+
     /// <summary>
     /// Класс описывает документ в базе (то, что в xml-файле)
     /// </summary>
@@ -49,5 +52,10 @@
         /// Добавление имени таблицы в шапку
         /// </summary>
         public bool NameToHeader { get; set; }
+
+        /// <summary>
+        /// Текстовый индекс нормативного документ
+        /// </summary>
+        public string NormativeDocumentIndex { get; set; }
     }
 }
